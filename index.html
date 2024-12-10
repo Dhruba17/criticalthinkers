@@ -1,0 +1,223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Critical Thinkers</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
+<style>
+    * {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: Arial, sans-serif;
+  line-height: 1.6;
+  color: #333;
+  background-color: #f4f4f4;
+}
+
+header {
+  background: #35424a;
+  color: #ffffff;
+  padding: 10px 20px;
+  text-align: center;
+}
+
+header h1 {
+  margin-bottom: 10px;
+}
+
+nav {
+  margin-top: 10px;
+}
+
+nav a {
+  color: #ffffff;
+  text-decoration: none;
+  margin: 0 15px;
+}
+
+nav a:hover {
+  text-decoration: underline;
+}
+
+main {
+  padding: 20px;
+}
+
+section {
+  margin-bottom: 40px;
+}
+
+h2 {
+  color: #35424a;
+  margin-bottom: 10px;
+}
+
+form {
+  max-width: 300px;
+  margin: auto;
+}
+
+form label {
+  display: block;
+  margin-bottom: 5px;
+}
+
+form input {
+  width: 100%;
+  padding: 8px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+}
+
+button {
+  display: block;
+  width: 100%;
+  padding: 10px;
+  background: #35424a;
+  color: #ffffff;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #1e2d34;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 10px;
+}
+
+table, th, td {
+  border: 1px solid #ddd;
+}
+
+th, td {
+  text-align: left;
+  padding: 10px;
+}
+
+th {
+  background-color: #f2f2f2;
+}
+
+footer {
+  text-align: center;
+  padding: 10px 20px;
+  background: #35424a;
+  color: #ffffff;
+}
+</style>
+<body>
+  <header>
+    <h1>Critical Thinkers</h1>
+    <nav>
+      <a href="#home">Home</a>
+      <a href="#login">Login</a>
+      <a href="#problems">Problems</a>
+      <a href="#leaderboard">Leaderboard</a>
+    </nav>
+  </header>
+  
+  <main>
+    <section id="home">
+      <h2>Welcome to Critical Thinkers</h2>
+      <p>Challenge yourself with problems in Mathematics, Physics, Chemistry, Biology, and History.</p>
+    </section>
+
+    <section id="login">
+      <h2>Login</h2>
+      <form id="loginForm">
+        <label for="username">Username:</label>
+        <input type="text" id="username" name="username" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" required>
+        <button type="submit">Login</button>
+      </form>
+      <p id="loginMessage"></p>
+    </section>
+
+    <section id="problems">
+      <h2>Problems</h2>
+      <ul id="problemList"></ul>
+    </section>
+
+    <section id="leaderboard">
+      <h2>Leaderboard</h2>
+      <table>
+        <thead>
+          <tr>
+            <th>Rank</th>
+            <th>Name</th>
+            <th>Score</th>
+          </tr>
+        </thead>
+        <tbody id="leaderboardTable">
+        </tbody>
+      </table>
+    </section>
+  </main>
+
+  <footer>
+    <p>© 2024 Critical Thinkers</p>
+  </footer>
+
+  <script>
+      // Login form functionality
+document.getElementById("loginForm").addEventListener("submit", function(event) {
+  event.preventDefault();
+
+  const username = document.getElementById("username").value;
+  const password = document.getElementById("password").value;
+
+  if (username === "testuser" && password === "password123") {
+    document.getElementById("loginMessage").textContent = `Welcome, ${username}!`;
+    document.getElementById("loginMessage").style.color = "green";
+  } else {
+    document.getElementById("loginMessage").textContent = "Invalid login credentials!";
+    document.getElementById("loginMessage").style.color = "red";
+  }
+});
+
+// Mock problems data
+const problems = [
+  "Solve x² + 3x + 2 = 0",
+  "Find the derivative of sin(x)",
+  "What is the atomic number of Oxygen?",
+  "Who discovered the law of gravity?",
+  "Explain the causes of World War I."
+];
+
+const problemList = document.getElementById("problemList");
+problems.forEach((problem, index) => {
+  const li = document.createElement("li");
+  li.textContent = `${index + 1}. ${problem}`;
+  problemList.appendChild(li);
+});
+
+// Mock leaderboard data
+const leaderboard = [
+  { rank: 1, name: "?", score: 95 },
+  { rank: 2, name: "?", score: 90 },
+  { rank: 3, name: "?", score: 85 }
+];
+
+const leaderboardTable = document.getElementById("leaderboardTable");
+leaderboard.forEach(player => {
+  const row = document.createElement("tr");
+  row.innerHTML = `<td>${player.rank}</td><td>${player.name}</td><td>${player.score}</td>`;
+  leaderboardTable.appendChild(row);
+});
+      
+  </script>
+</body>
+</html>
