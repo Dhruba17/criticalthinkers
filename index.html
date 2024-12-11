@@ -41,15 +41,50 @@
         /* Menu icon styling */
         .menu-icon {
             color: white;
-            font-size: 20px;
+            font-size: 15px;
             cursor: pointer;
+            position: relative;
+        }
+
+        /* Remove blue color and underline from the link */
+        .menu-icon a {
+            color: white;
+            text-decoration: none;
+        }
+
+        /* Dropdown menu styling */
+        .dropdown-content {
+            display: none;
+            position: absolute;
+            background-color: #333;
+            min-width: 160px;
+            z-index: 1;
+            border-radius: 5px;
+            top: 35px;
+            right: 0;
+        }
+
+        .dropdown-content a {
+            color: white;
+            padding: 12px 16px;
+            text-decoration: none;
+            display: block;
+        }
+
+        .dropdown-content a:hover {
+            background-color: #575757;
+        }
+
+        /* Show dropdown when hovering over the menu icon */
+        .menu-icon:hover .dropdown-content {
+            display: block;
         }
 
         /* Container for the main content */
         .x {
             background-color: black;
             border-radius: 22px;
-            margin-top: 30px;
+            margin-top: 10px;
         }
 
         /* Main content section */
@@ -58,9 +93,24 @@
             background-color: #212121;
             padding-bottom: 10px;
             padding-top:10px;
-            justify-content:flex;         border-radius: 20px;
+            justify-content:flex;         
+            border-radius: 20px;
             text-align: center;
-            content-align:center;      }
+            content-align:center;      
+        }
+
+        /* Section Styling */
+        .section {
+            background-color: #333;
+            margin-top: 20px;
+            border-radius: 10px;
+            padding: 20px;
+        }
+
+        /* Section Heading */
+        .section h3 {
+            text-align: center;
+        }
 
         /* Responsive Design */
         @media (max-width: 768px) {
@@ -88,7 +138,16 @@
                 </div>
             </div>
             <div class="menu-icon">
-                &#x22EE; <!-- Unicode for vertical ellipsis (3 dots) -->
+                <a href="javascript:void(0)">&#x22EE;</a>
+                <!-- Dropdown Menu -->
+                <div class="dropdown-content">
+                    <a href="index.html">Home</a>
+                    <a href="Resources.html">Resources</a>
+                    <a href="Magazine.html">Magazine</a>
+                    <a href="Archive.html">Archive</a>
+                    <a href="Team.html">Team</a>
+                    <a href="Contact.html">Contact</a>
+                </div>
             </div>
         </div>
     </div>
@@ -102,6 +161,5 @@
             Each issue of Critical Thinkers is crafted to present well-researched articles, insightful analyses, and thought-provoking content that caters to students, educators, and enthusiasts alike. Whether you're solving challenging mathematical problems, exploring groundbreaking discoveries in science, or delving into the lessons of history, the magazine provides an engaging platform for critical inquiry.
         </p>
     </div>
-
 </body>
 </html>
