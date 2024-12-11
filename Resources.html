@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Resources</title>
+   <!-- Font Awesome CDN for the icon -->
+   <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
+   <style>
+      body {
+         background-color: black;  
+         margin: 0;
+         padding: 0;
+      }
+      h1 { 
+         color: white;
+      }
+      .ellipsis {
+         font-size: 30px;
+         color: white;
+         cursor: pointer;
+      }
+      .links-container {
+         display: none;
+      }
+      .links {
+         color: white;
+         font-size: 20px;
+         display: block;
+         text-decoration: none;
+      }
+      .links:hover {
+         color: lightgray;
+      }
+      /* Back button (Negative bar) with left arrow symbol */
+      .back-button {
+         position: fixed;
+         top: 20px;
+         left: 20px;
+         color: white;
+         font-size: 30px;
+         cursor: pointer;
+         border: none;
+         background: none;
+         text-decoration: none; /* Remove underline */
+      }
+      .back-button:hover {
+         color: lightgray;
+      }
+      /* Show links when hovering over the ellipsis */
+      .ellipsis:hover + .links-container {
+         display: block;
+      }
+      .pdf-container {
+         margin-top: 20px;
+         text-align: center;
+      }
+      .download-button {
+         display: block;
+         color: lightblue;
+         font-size: 20px;
+         text-decoration: none;
+         margin-top: 20px;
+         cursor: pointer;
+      }
+      .download-button:hover {
+         color: lightgray;
+      }
+      .book-title {
+         color: white;
+         font-size: 24px;
+         margin-bottom: 10px;
+      }
+      /* Style for iframe container to show only first page */
+      iframe {
+         border: none;
+         width: 80%;
+         height: 500px;
+      }
+   </style>
+</head>
+<body>
+   <!-- Back button (Negative bar) with left arrow symbol -->
+   <a href="javascript:history.back()" class="back-button">◄</a>
+   
+   <center>
+      <h1> Resources </h1>
+      
+      <!-- Three-Dot Icon -->
+      <div class="ellipsis"><i class="fas fa-ellipsis-h"></i></div>
+      
+      <!-- Links that appear when hovering over the ellipsis -->
+      <div class="links-container">
+         <a href="https://example.com" class="links">Example Link 1</a><br>
+         <a href="https://example.com" class="links">Example Link 2</a><br>
+         <a href="https://example.com" class="links">Example Link 3</a><br>
+         <a href="Resources.html" class="links">Resources.html</a> <!-- Link to Resources.html -->
+      </div>
+   </center>
+   
+   <div class="pdf-container">
+      <!-- Book Name in the PDF Section -->
+      <div class="book-title">Book Title: Introduction To Solid State Physics</div>
+      
+      <!-- Embed the PDF for previewing -->
+      <iframe src="ISSP.pdf" width="100%" height="500px"></iframe> <!-- First page of the PDF preview -->
+   </div>
+   
+   <!-- Button to trigger download -->
+   <button class="download-button" onclick="downloadPDF()">Download This book</button>
+
+   <script>
+      function downloadPDF() {
+         // Trigger the download of the PDF using JavaScript
+         const link = document.createElement('a');
+         link.href = 'ISSP.pdf';  // Path to the PDF
+         link.download = 'ISSP.pdf';  // Name of the downloaded file
+         document.body.appendChild(link);  // Append the link to the body
+         link.click();  // Simulate a click to start the download
+         document.body.removeChild(link);  // Remove the link after download is triggered
+      }
+   </script>
+</body>
+</html>
