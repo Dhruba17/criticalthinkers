@@ -2,6 +2,7 @@
 <html lang="en">
 <head>
    <meta charset="UTF-8">
+   <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Resources</title>
    <!-- Font Awesome CDN for the icon -->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -10,23 +11,30 @@
          background-color: black;  
          margin: 0;
          padding: 0;
+         font-family: Arial, sans-serif;
       }
       h1 { 
          color: white;
+         text-align: center;
+         margin: 20px 0;
       }
       .ellipsis {
          font-size: 30px;
          color: white;
          cursor: pointer;
+         text-align: center;
+         margin: 10px 0;
       }
       .links-container {
          display: none;
+         text-align: center;
       }
       .links {
          color: white;
-         font-size: 20px;
+         font-size: 18px;
          display: block;
          text-decoration: none;
+         margin: 5px 0;
       }
       .links:hover {
          color: lightgray;
@@ -41,7 +49,7 @@
          cursor: pointer;
          border: none;
          background: none;
-         text-decoration: none; /* Remove underline */
+         text-decoration: none;
       }
       .back-button:hover {
          color: lightgray;
@@ -51,7 +59,7 @@
          display: block;
       }
       .pdf-container {
-         margin-top: 20px;
+         margin: 20px;
          text-align: center;
       }
       .download-button {
@@ -59,22 +67,56 @@
          color: lightblue;
          font-size: 20px;
          text-decoration: none;
-         margin-top: 20px;
+         margin: 20px auto;
          cursor: pointer;
+         padding: 10px 20px;
+         border: 2px solid lightblue;
+         border-radius: 5px;
+         background: none;
       }
       .download-button:hover {
          color: lightgray;
+         border-color: lightgray;
       }
       .book-title {
          color: white;
-         font-size: 24px;
+         font-size: 20px;
          margin-bottom: 10px;
       }
-      /* Style for iframe container to show only first page */
       iframe {
          border: none;
-         width: 80%;
+         width: 90%;
+         max-width: 800px;
          height: 500px;
+      }
+      @media (max-width: 768px) {
+         h1 {
+            font-size: 24px;
+         }
+         .ellipsis {
+            font-size: 25px;
+         }
+         .links {
+            font-size: 16px;
+         }
+         .download-button {
+            font-size: 16px;
+         }
+         iframe {
+            height: 300px;
+         }
+      }
+      @media (max-width: 480px) {
+         .back-button {
+            font-size: 24px;
+         }
+         .book-title {
+            font-size: 18px;
+         }
+         iframe {
+            width: 95%;
+            height: 250px;
+         }
       }
    </style>
 </head>
@@ -82,31 +124,29 @@
    <!-- Back button (Negative bar) with left arrow symbol -->
    <a href="javascript:history.back()" class="back-button">◄</a>
    
-   <center>
-      <h1> Resources </h1>
-      
-      <!-- Three-Dot Icon -->
-      <div class="ellipsis"><i class="fas fa-ellipsis-h"></i></div>
-      
-      <!-- Links that appear when hovering over the ellipsis -->
-      <div class="links-container">
-         <a href="https://example.com" class="links">Example Link 1</a><br>
-         <a href="https://example.com" class="links">Example Link 2</a><br>
-         <a href="https://example.com" class="links">Example Link 3</a><br>
-         <a href="Resources.html" class="links">Resources.html</a> <!-- Link to Resources.html -->
-      </div>
-   </center>
+   <h1>Resources</h1>
+   
+   <!-- Three-Dot Icon -->
+   <div class="ellipsis"><i class="fas fa-ellipsis-h"></i></div>
+   
+   <!-- Links that appear when hovering over the ellipsis -->
+   <div class="links-container">
+      <a href="https://example.com" class="links">Example Link 1</a>
+      <a href="https://example.com" class="links">Example Link 2</a>
+      <a href="https://example.com" class="links">Example Link 3</a>
+      <a href="Resources.html" class="links">Resources.html</a> <!-- Link to Resources.html -->
+   </div>
    
    <div class="pdf-container">
       <!-- Book Name in the PDF Section -->
       <div class="book-title">Book Title: Introduction To Solid State Physics</div>
       
       <!-- Embed the PDF for previewing -->
-      <iframe src="ISSP.pdf" width="100%" height="500px"></iframe> <!-- First page of the PDF preview -->
+      <iframe src="ISSP.pdf"></iframe>
    </div>
    
    <!-- Button to trigger download -->
-   <button class="download-button" onclick="downloadPDF()">Download This book</button>
+   <button class="download-button" onclick="downloadPDF()">Download This Book</button>
 
    <script>
       function downloadPDF() {
