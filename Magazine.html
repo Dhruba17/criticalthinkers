@@ -1,0 +1,69 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+   <meta charset="UTF-8">
+   <title>Magazine</title>
+   <style>
+      body {
+         background-color: black;
+         color: white;
+      }
+      button {
+         margin-top: 20px;
+         padding: 10px 20px;
+         background-color: white;
+         color: black;
+         border: none;
+         cursor: pointer;
+         border-radius: 5px;
+      }
+      .content {
+         padding: 20px;
+         text-align: center;
+      }
+      a {
+         text-decoration: none;
+         background-color: #4CAF50;
+         color: white;
+         padding: 10px 20px;
+         margin: 20px;
+         border-radius: 5px;
+         display: inline-block;
+      }
+      embed {
+         width: 100%;
+         height: 600px;
+         margin-top: 20px;
+         border-radius: 5px;
+      }
+   </style>
+</head>
+<body>
+   <!-- Back Button -->
+   <button onclick="goBack()">Go Back</button>
+
+   <!-- Heading -->
+   <center>
+      <h1 style="background: linear-gradient(to right, #000, #0061FE); border-radius:15px; padding: 20px;margin-top:20px;">
+         Magazine
+      </h1>
+   </center>
+
+   <!-- PDF Download and View Section -->
+   <div class="content">
+      <h2>Download or View the Critical Thinkers Magazine's PDF</h2>
+      <!-- Link to Download PDF -->
+      <a href="CTMZ_1.pdf" download>Download</a>
+
+      <!-- Embedded PDF Viewer -->
+      <h3>View PDF Directly:</h3>
+      <embed src="CTMZ_1.pdf" type="application/pdf" />
+   </div>
+
+   <script>
+      function goBack() {
+         window.history.back();
+      }
+   </script>
+</body>
+</html>
