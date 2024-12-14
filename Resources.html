@@ -2,7 +2,7 @@
 <html lang="en">
 <head>
    <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=1.0">
+   <meta name="viewport" content="width=device-width, initial-scale=.70">
    <title>Resources</title>
    <!-- Font Awesome CDN for the icon -->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
@@ -118,12 +118,27 @@
             height: 250px;
          }
       }
+      button {
+         margin-top: 20px;
+         padding: 10px 20px;
+         background-color: white;
+         color: black;
+         border: none;
+         cursor: pointer;
+         border-radius: 5px;
+      }
    </style>
 </head>
 <body>
    
    <!-- Back button (Negative bar) with left arrow symbol -->
-   <a href="javascript:history.back()" class="back-button">◄</a>
+   <button onclick="goBack()">Go Back</button>
+
+   <script>
+      function goBack() {
+         window.history.back();
+      }
+   </script>
    
    <h1 style="background: linear-gradient(to right, black, white); border-radius:15px; padding: 20px;margin-top:20px;">Resources</h1>
 </center>
