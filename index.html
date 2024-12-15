@@ -41,7 +41,7 @@
         /* Menu icon styling */
         .menu-icon {
             color: white;
-            font-size: 15px;
+            font-size: 25px;
             cursor: pointer;
             position: relative;
         }
@@ -137,6 +137,30 @@
                 margin-left: auto;
             }
         }
+        
+        /* Buttons container */
+.button-container {
+    margin-top: 20px;
+    text-align: center;
+}
+
+/* Button styling */
+.button-container a {
+    display: inline-block;
+    padding: 10px 20px;
+    margin: 5px;
+    font-size: 16px;
+    font-weight: bold;
+    text-decoration: none;
+    color: white;
+    background: linear-gradient(to bottom, #000, #ffff);
+    border-radius: 20px;
+    transition: background 0.3s ease;
+}
+
+.button-container a:hover {
+    background: linear-gradient(to right, #7EAAA0, #9E9994);
+}
     </style>
 </head>
 <body>
@@ -147,8 +171,8 @@
                 <div class="logo">
                     <img src="ab.png" alt="logo">
                 </div>
-                <div class="a">
-                    <h2>Critical Thinkers</h2>
+                <div class="a"                 
+                    <h2 style="font-weight:bold;font-size:27px">Critical Thinkers</h2>
                 </div>
             </div>
             <div class="menu-icon">
@@ -167,7 +191,13 @@
             <div id="clock" class="clock"></div>
         </div>
     </div>
-    
+    <!-- Buttons Section -->
+    <div class="button-container">
+        <a href="index.html">Home</a>
+        <a href="Resources.html">Resources</a>
+        <a href="Magazine.html">Magazine</a>
+        <a href="Team.html">Team</a>
+    </div>
     <center><h1 style="background: linear-gradient(to right, black, white); border-radius:15px; padding:20px;margin-top:20px;">Blogs</h1>
     </center>
     
