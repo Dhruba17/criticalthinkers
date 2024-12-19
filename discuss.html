@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -107,31 +108,6 @@
       window.history.back();
     }
 
-    // Function to store data in localStorage with expiry date
-    function setLocalStorageWithExpiry(key, value, ttl) {
-      const now = new Date();
-      const item = {
-        value: value,
-        expiry: now.getTime() + ttl,
-      };
-      localStorage.setItem(key, JSON.stringify(item));
-    }
-
-    // Function to retrieve data from localStorage with expiry check
-    function getLocalStorageWithExpiry(key) {
-      const itemStr = localStorage.getItem(key);
-      if (!itemStr) {
-        return null;
-      }
-      const item = JSON.parse(itemStr);
-      const now = new Date();
-      if (now.getTime() > item.expiry) {
-        localStorage.removeItem(key);
-        return null;
-      }
-      return item.value;
-    }
-
     // Function to submit the post
     function submitPost() {
       var postText = document.getElementById('postText').value;
@@ -148,19 +124,18 @@
         return;
       }
 
-      // Check if the username already exists
-      let usedNames = getLocalStorageWithExpiry('usedNames');
-      if (usedNames && usedNames.includes(userName)) {
+      // Retrieve used usernames from localStorage
+      let usedNames = JSON.parse(localStorage.getItem('usedNames')) || []; // Default to empty array if null
+
+      // Check if the username is already used
+      if (usedNames.includes(userName)) {
         alert('This name has already been used.');
         return;
       }
 
-      // Store the username in local storage to prevent duplicates
-      if (!usedNames) {
-        usedNames = [];
-      }
+      // Add username to the list of used names
       usedNames.push(userName);
-      setLocalStorageWithExpiry('usedNames', usedNames, 365 * 24 * 60 * 60 * 1000); // 1 year expiry
+      localStorage.setItem('usedNames', JSON.stringify(usedNames)); // Save to localStorage
 
       // Create a new post element
       var postDiv = document.createElement('div');
@@ -176,6 +151,13 @@
 
       postDiv.appendChild(authorDiv);
       postDiv.appendChild(contentDiv);
+
+      // Save the post to localStorage
+      let posts = JSON.parse(localStorage.getItem('posts')) || []; // Default to empty array if null
+      posts.push({ userName, content: postText });
+      localStorage.setItem('posts', JSON.stringify(posts)); // Save posts to localStorage
+
+      // Display the new post
       document.getElementById('postContainer').appendChild(postDiv);
 
       // Clear the name and post text fields after posting
@@ -183,27 +165,29 @@
       document.getElementById('postText').value = '';
     }
 
-    // Load any posts or names when the page is loaded
+    // Function to load posts and usernames from localStorage on page load
     window.onload = function() {
-      let posts = getLocalStorageWithExpiry('posts');
-      if (posts) {
-        posts.forEach(post => {
-          var postDiv = document.createElement('div');
-          postDiv.classList.add('post');
-          
-          var authorDiv = document.createElement('div');
-          authorDiv.classList.add('author');
-          authorDiv.innerText = post.userName;
+      // Load used names and posts
+      let usedNames = JSON.parse(localStorage.getItem('usedNames')) || []; // Default to empty array if null
+      let posts = JSON.parse(localStorage.getItem('posts')) || []; // Default to empty array if null
 
-          var contentDiv = document.createElement('div');
-          contentDiv.classList.add('content');
-          contentDiv.innerText = post.content;
+      // Display the posts from localStorage
+      posts.forEach(post => {
+        var postDiv = document.createElement('div');
+        postDiv.classList.add('post');
+        
+        var authorDiv = document.createElement('div');
+        authorDiv.classList.add('author');
+        authorDiv.innerText = post.userName;
 
-          postDiv.appendChild(authorDiv);
-          postDiv.appendChild(contentDiv);
-          document.getElementById('postContainer').appendChild(postDiv);
-        });
-      }
+        var contentDiv = document.createElement('div');
+        contentDiv.classList.add('content');
+        contentDiv.innerText = post.content;
+
+        postDiv.appendChild(authorDiv);
+        postDiv.appendChild(contentDiv);
+        document.getElementById('postContainer').appendChild(postDiv);
+      });
     }
   </script>
 
