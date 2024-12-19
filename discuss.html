@@ -107,6 +107,32 @@
       window.history.back();
     }
 
+    // Function to store data in localStorage with expiry date
+    function setLocalStorageWithExpiry(key, value, ttl) {
+      const now = new Date();
+      const item = {
+        value: value,
+        expiry: now.getTime() + ttl,
+      };
+      localStorage.setItem(key, JSON.stringify(item));
+    }
+
+    // Function to retrieve data from localStorage with expiry check
+    function getLocalStorageWithExpiry(key) {
+      const itemStr = localStorage.getItem(key);
+      if (!itemStr) {
+        return null;
+      }
+      const item = JSON.parse(itemStr);
+      const now = new Date();
+      if (now.getTime() > item.expiry) {
+        localStorage.removeItem(key);
+        return null;
+      }
+      return item.value;
+    }
+
+    // Function to submit the post
     function submitPost() {
       var postText = document.getElementById('postText').value;
       var userName = document.getElementById('userName').value;
@@ -121,6 +147,20 @@
         alert('Please write something before posting.');
         return;
       }
+
+      // Check if the username already exists
+      let usedNames = getLocalStorageWithExpiry('usedNames');
+      if (usedNames && usedNames.includes(userName)) {
+        alert('This name has already been used.');
+        return;
+      }
+
+      // Store the username in local storage to prevent duplicates
+      if (!usedNames) {
+        usedNames = [];
+      }
+      usedNames.push(userName);
+      setLocalStorageWithExpiry('usedNames', usedNames, 365 * 24 * 60 * 60 * 1000); // 1 year expiry
 
       // Create a new post element
       var postDiv = document.createElement('div');
@@ -142,9 +182,30 @@
       document.getElementById('userName').value = '';
       document.getElementById('postText').value = '';
     }
+
+    // Load any posts or names when the page is loaded
+    window.onload = function() {
+      let posts = getLocalStorageWithExpiry('posts');
+      if (posts) {
+        posts.forEach(post => {
+          var postDiv = document.createElement('div');
+          postDiv.classList.add('post');
+          
+          var authorDiv = document.createElement('div');
+          authorDiv.classList.add('author');
+          authorDiv.innerText = post.userName;
+
+          var contentDiv = document.createElement('div');
+          contentDiv.classList.add('content');
+          contentDiv.innerText = post.content;
+
+          postDiv.appendChild(authorDiv);
+          postDiv.appendChild(contentDiv);
+          document.getElementById('postContainer').appendChild(postDiv);
+        });
+      }
+    }
   </script>
 
 </body>
 </html>
-
-one name can use by only one user
