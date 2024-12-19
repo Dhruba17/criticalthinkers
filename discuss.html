@@ -1,0 +1,150 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Simple Post Platform</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      padding: 20px;
+    }
+    .container {
+      max-width: 600px;
+      margin: 0 auto;
+      background-color: #fff;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+    }
+    .post-box, .name-box {
+      margin-bottom: 20px;
+    }
+    .post-box textarea, .name-box input {
+      width: 100%;
+      padding: 10px;
+      border-radius: 5px;
+      border: 1px solid #ccc;
+    }
+    .post-box textarea {
+      height: 100px;
+      resize: none;
+    }
+    .name-box input {
+      height: 40px;
+    }
+    .post-button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+    }
+    .post-button:hover {
+      background-color: #45a049;
+    }
+    .back-button {
+      background-color: #ccc;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      font-size: 16px;
+      margin-bottom: 20px;
+    }
+    .back-button:hover {
+      background-color: #b3b3b3;
+    }
+    .post {
+      margin-top: 20px;
+      background-color: #f1f1f1;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+    }
+    .post .content {
+      margin-bottom: 10px;
+      font-size: 16px;
+    }
+    .post .author {
+      font-weight: bold;
+      margin-bottom: 5px;
+    }
+  </style>
+</head>
+<body>
+
+  <div class="container">
+    <h2>Create Your Account and Post</h2>
+    
+    <!-- Back Button -->
+    <button class="back-button" onclick="goBack()">Back</button>
+
+    <!-- Name Input Box -->
+    <div class="name-box">
+      <input type="text" id="userName" placeholder="Enter your name" />
+    </div>
+    
+    <!-- Post Input Box -->
+    <div class="post-box">
+      <textarea id="postText" placeholder="Write something..."></textarea>
+    </div>
+
+    <!-- Post Button -->
+    <button class="post-button" onclick="submitPost()">Post</button>
+
+    <!-- Display Post -->
+    <div id="postContainer"></div>
+  </div>
+
+  <script>
+    // Function to go back to the previous page
+    function goBack() {
+      window.history.back();
+    }
+
+    function submitPost() {
+      var postText = document.getElementById('postText').value;
+      var userName = document.getElementById('userName').value;
+
+      // Check if the user has entered their name and post content
+      if (userName.trim() === '') {
+        alert('Please enter your name.');
+        return;
+      }
+      
+      if (postText.trim() === '') {
+        alert('Please write something before posting.');
+        return;
+      }
+
+      // Create a new post element
+      var postDiv = document.createElement('div');
+      postDiv.classList.add('post');
+      
+      var authorDiv = document.createElement('div');
+      authorDiv.classList.add('author');
+      authorDiv.innerText = userName;
+
+      var contentDiv = document.createElement('div');
+      contentDiv.classList.add('content');
+      contentDiv.innerText = postText;
+
+      postDiv.appendChild(authorDiv);
+      postDiv.appendChild(contentDiv);
+      document.getElementById('postContainer').appendChild(postDiv);
+
+      // Clear the name and post text fields after posting
+      document.getElementById('userName').value = '';
+      document.getElementById('postText').value = '';
+    }
+  </script>
+
+</body>
+</html>
+
+one name can use by only one user
