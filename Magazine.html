@@ -8,6 +8,7 @@
       body {
          background-color: black;
          color: white;
+         font-family: Arial, sans-serif;
       }
       button {
          margin-top: 20px;
@@ -22,20 +23,49 @@
          padding: 20px;
          text-align: center;
       }
+      
       a {
-         text-decoration: none;
+  text-decoration: none;
+  background-image: linear-gradient(to right, #000, #0061FE); 
+  color: white;
+  padding: 10px 20px;
+  margin: 20px;
+  border-radius: 5px;
+  display: inline-block;
+  transition: background-color 0.3s ease; 
+
+  &:hover {
+    background-image: linear-gradient(to right, #0061FE, #000); 
+  }
+}
+
+      h1 {
+         background: linear-gradient(to right, #000, #0061FE);
+         border-radius: 15px;
+         padding: 20px;
+         margin-top: 20px;
+      }
+      .image-container {
+         position: relative;
+         display: inline-block;
+      }
+      img {
+         width: 60%;
+         max-width: 600px;
+         border-radius: 10px;
+      }
+      .download-btn {
+         position: absolute;
+         bottom: -80px;
+         left: 50%;
+         transform: translateX(-50%);
          background-color: #4CAF50;
          color: white;
          padding: 10px 20px;
-         margin: 20px;
          border-radius: 5px;
+         text-decoration: none;
+         font-weight: bold;
          display: inline-block;
-      }
-      embed {
-         width: 100%;
-         height: 600px;
-         margin-top: 20px;
-         border-radius: 5px;
       }
    </style>
 </head>
@@ -45,20 +75,20 @@
 
    <!-- Heading -->
    <center>
-      <h1 style="background: linear-gradient(to right, #000, #0061FE); border-radius:15px; padding: 20px;margin-top:20px;">
-         Magazine
-      </h1>
+      <h1>Magazine</h1>
    </center>
 
-   <!-- PDF Download and View Section -->
+   <!-- PDF Download and Image Section -->
    <div class="content">
-      <h2>Download or View the Critical Thinkers Magazine's PDF</h2>
-      <!-- Link to Download PDF -->
-      <a href="CTMZ_1.pdf" download>Download</a>
+      <h2>Download the Critical Thinkers Magazine's PDF</h2>
 
-      <!-- Embedded PDF Viewer -->
-      <h3>View PDF Directly:</h3>
-      <embed src="CTMZ_1.pdf" type="application/pdf" />
+      <!-- Image Container with Download Button -->
+      <div class="image-container">
+         <img src="mg.png" alt="Magazine Cover">
+      </div>
+    <a href="https://drive.google.com/file/d/19jIub3NfXlbZ86HQwCG-l0wnIKNrYtQx/view?usp=drivesdk">
+         Download and View
+      </a>
    </div>
 
    <script>
