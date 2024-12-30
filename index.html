@@ -1,3 +1,4 @@
+<!DOCTYPE html>
 <html>
 <head>
     <meta charset="UTF-8">
@@ -46,7 +47,6 @@
             position: relative;
         }
 
-        /* Remove blue color and underline from the link */
         .menu-icon a {
             color: white;
             text-decoration: none;
@@ -75,7 +75,6 @@
             background-color: #575757;
         }
 
-        /* Show dropdown when hovering over the menu icon */
         .menu-icon:hover .dropdown-content {
             display: block;
         }
@@ -88,30 +87,20 @@
             padding: 10px 20px;
             border-radius: 20px;
             text-align: center;
-            width: 20%; /* Set width to 70% */
+            width: 20%;
             position: absolute;
             left: 70%;
             transform: translateX(-50%);
-        }
-
-        /* Container for the main content */
-        .x {
-            background-color: black;
-            border-radius: 22px;
-            margin-top: 10px;
         }
 
         /* Main content section */
         .b {
             color: white;
             background-color: #212121;
-            padding-bottom: 10px;
-            padding-top:10px;
-            justify-content:flex;         
+            padding: 10px;
             border-radius: 20px;
             text-align: center;
-            content-align:center;   
-            margin-top:15px;   
+            margin-top: 15px;
         }
 
         /* Section Styling */
@@ -122,7 +111,6 @@
             padding: 15px;
         }
 
-        /* Section Heading */
         .section h3 {
             text-align: center;
         }
@@ -138,14 +126,13 @@
                 margin-left: auto;
             }
         }
-        
+
         /* Buttons container */
         .button-container {
             margin-top: 20px;
             text-align: center;
         }
 
-        /* Button styling */
         .button-container a {
             display: inline-block;
             padding: 10px 20px;
@@ -158,8 +145,37 @@
             border-radius: 20px;
             transition: background 0.3s ease;
         }
+
+
+.Magazine12025 {
+  background: linear-gradient(to bottom, #37983E, #C1C6D1, #ffffff); /* Updated to a visible color instead of #0000 */
+  background-size: 200% 100%; /* Ensures the gradient is large enough to animate */
+  padding: 50px 0;
+  text-align: center;
+  border-radius: 15px;
+  margin-top: 20px;
+  margin-bottom: 10px;
+  animation: gradient-animation 2s ease infinite;
+}
+@keyframes gradient-animation {
+  0% {
+    background-position: 04% 50%;
+  }
+  50% {
+    background-position: 100% 50%;
+  }
+  100% {
+    background-position:40% 50%;
+  }
+}
+
+        .Magazine12025 img {
+            width: 60%;
+            max-width: 600px;
+            border-radius: 10px;
+            margin-top: 20px;
+        }
     </style>
-</head>
 </head>
 <body>
     <!-- Header Section -->
@@ -169,13 +185,12 @@
                 <div class="logo">
                     <img src="ab.png" alt="logo">
                 </div>
-                <div class="a"                 
+                <div class="a">                 
                     <h2 style="font-weight:bold;font-size:27px">Critical Thinkers</h2>
                 </div>
             </div>
             <div class="menu-icon">
                 <a href="javascript:void(0)">&#x22EE;</a>
-                <!-- Dropdown Menu -->
                 <div class="dropdown-content">
                     <a href="index.html">Home</a>
                     <a href="Resources.html">Resources</a>
@@ -184,15 +199,13 @@
                     <a href="Team.html">Team</a>
                     <a href="Contact.html">Contact</a>
                     <a href="myprofile.html">My Profile</a>
-                    
                     <a href="discuss.html">Discuss</a>
                 </div>
-            
             </div>
-            <!-- Digital Clock -->
             <div id="clock" class="clock"></div>
         </div>
     </div>
+
     <!-- Buttons Section -->
     <div class="button-container">
         <a href="index.html">Home</a>
@@ -200,87 +213,49 @@
         <a href="Magazine.html">Magazine</a>
         <a href="Team.html">Team</a>
     </div>
-    <center><h1 style="background: linear-gradient(to right, black, white); border-radius:15px; padding:20px;margin-top:20px;">Blogs</h1>
+
+    <center>
+        <h1 style="background: linear-gradient(to right, black, white); border-radius:15px; padding:20px; margin-top:20px;">Blogs</h1>
     </center>
-    
+
     <!-- Main Content Section -->
-    <div style="font-family: Arial, sans-serif; line-height: 1.6; color:white;background-color:#172121;padding-top:10px;padding-bottom:10px;border-radius:20px;">
-        <h2 style="color: #595959;margin-bottom:5px;">New Class of Magnetism Discovered: Altermagnetism</h2>
-        <p>Scientists have imaged a new type of magnetism called <strong>altermagnetism</strong> for the first time, opening doors to faster and more efficient technology. This breakthrough could lead to magnetic memory devices that operate up to a thousand times faster than current technologies.</p>
+    <div class="Magazine12025">
+        <center>
+            <h1 style="color:black;">Critical Thinkers 2025 January Magazine Has Been Published !</h1>
+            <img src="mg.png" alt="Magazine Cover">
+        </center>
         
-        <h3 style="color: #00796b;">What is Altermagnetism?</h3>
-        <p>Altermagnetism is a unique form of magnetic order. In this type of magnetism, the tiny magnetic building blocks align in opposite directions (antiparallel) with their neighbors. However, the twist is that each block's position is rotated compared to its neighbors, creating a distinct pattern.</p>
-        
-        <blockquote style="border-left: 4px solid #ddd; margin: 10px 0; padding-left: 10px; font-style: italic; color: #555;">
-            "Altermagnets are like antiferromagnets, but with a twist. This small structural difference has huge implications for how we use magnetic materials in technology."  
-            <br><span style="font-weight: bold;">– Professor Peter Wadley</span>
-        </blockquote>
-        
-        <h3 style="color: #00796b;">Why is This Important?</h3>
-        <p>Magnetic materials are vital in computer memory and modern electronics. However, current magnetic technologies often rely on rare and toxic heavy elements, which contribute to high carbon emissions and environmental impact.</p>
-        
-        <ul>
-            <li><strong>Increase speed:</strong> Devices could become up to 1,000 times faster.</li>
-            <li><strong>Improve efficiency:</strong> These materials combine the strengths of current magnetic types (ferromagnets and antiferromagnets).</li>
-            <li><strong>Be environmentally friendly:</strong> They could reduce dependency on rare, toxic materials.</li>
-        </ul>
-        
-        <h3 style="color: #00796b;">The Research</h3>
-        <p>This discovery was made by a team from the University of Nottingham, with results published in the journal <em>Nature</em>. The experiments were conducted at the MAX IV synchrotron facility in Sweden, a cutting-edge lab that uses X-rays to study materials at the nanoscale.</p>
-
-        <!-- Image Section -->
-        <img src="https://scx1.b-cdn.net/csz/news/800a/2024/researchers-discover-n-42.jpg" alt="Visualization of altermagnetism" style="width: 100%; max-width: 600px; margin: 20px 0; display: block;">
-
-        <blockquote style="border-left: 4px solid #ddd; margin: 10px 0; padding-left: 10px; font-style: italic; color: #555;">
-            "Seeing the potential of altermagnetic materials firsthand has been an incredible experience."  
-            <br><span style="font-weight: bold;">– Alfred Dal Din, Ph.D. student</span>
-        </blockquote>
-        
-        <h3 style="color: #00796b;">What’s Next?</h3>
-        <p>The study bridges theoretical concepts with practical applications, paving the way for new technologies. Senior Research Fellow Oliver Amin, a co-author of the study, says:</p>
-        
-        <blockquote style="border-left: 4px solid #ddd; margin: 10px 0; padding-left: 10px; font-style: italic; color: #555;">
-            "This is a step toward developing altermagnetic materials for real-world use."
-        </blockquote>
-        
-        <p>With continued research, altermagnetism could revolutionize electronics, creating faster, more sustainable technologies for the future.</p>
-    </div>
-    
-    <div class="b">
-        <h3>Critical Thinkers Magazine</h3>
-        <p>
-            Critical Thinkers is a dynamic and intellectually stimulating magazine designed to inspire curious minds and foster a deep understanding of the world. Focused on diverse subjects such as Mathematics, Physics, Chemistry, Biology, and History, this publication serves as abridge between complex ideas and accessible knowledge.
-
-            Each issue of Critical Thinkers is crafted to present well-researched articles, insightful analyses, and thought-provoking content that caters to students, educators, and enthusiasts alike. Whether you're solving challenging mathematical problems, exploring groundbreaking discoveries in science, or delving into the lessons of history, the magazine provides an engaging platform for critical inquiry.
-        </p>
+        <!-- Download Button -->
+        <center>
+            <button onclick="window.location.href='https://drive.google.com/file/d/19jIub3NfXlbZ86HQwCG-l0wnIKNrYtQx/view?usp=drivesdk';" 
+                style="margin-top: 40px;
+                margin-bottom: 15px;
+                width: 40%;    
+                background: rgba(0, 0, 0, 0.22);
+                border: 2px solid #383634;
+                border-radius: 5px;
+                color: #e1e1e1;
+                padding: 8px 15px;
+                font-size: 18px;
+                font-weight: 600;
+                cursor: pointer;">
+                Download
+            </button>
+        </center>
     </div>
 
     <script>
-        // Function to update the clock in 12-hour format with AM/PM
         function updateClock() {
             const now = new Date();
             let hours = now.getHours();
             const minutes = now.getMinutes().toString().padStart(2, '0');
             const seconds = now.getSeconds().toString().padStart(2, '0');
-
-            const day = now.getDate().toString().padStart(2, '0');
-            const month = (now.getMonth() + 1).toString().padStart(2, '0');
-            const year = now.getFullYear();
-
             const ampm = hours >= 12 ? 'PM' : 'AM';
-            hours = hours % 12;
-            hours = hours ? hours : 12; // the hour '0' should be '12'
-
+            hours = hours % 12 || 12;
             const timeString = `${hours}:${minutes}:${seconds} ${ampm}`;
-            const dateString = `${day}/${month}/${year}`;
-
-            document.getElementById('clock').innerHTML = `${timeString} <br> ${dateString}`;
+            document.getElementById('clock').innerHTML = timeString;
         }
-
-        // Update the clock every second
         setInterval(updateClock, 1000);
-
-        // Initialize the clock on page load
         updateClock();
     </script>
 </body>
