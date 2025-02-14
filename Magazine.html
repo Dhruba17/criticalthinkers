@@ -23,7 +23,6 @@
          padding: 20px;
          text-align: center;
       }
-      
       a {
          text-decoration: none;
          background-image: linear-gradient(to right, #000, #0061FE); 
@@ -34,11 +33,9 @@
          display: inline-block;
          transition: background-color 0.3s ease; 
       }
-
       a:hover {
          background-image: linear-gradient(to right, #0061FE, #000); 
       }
-
       h1 {
          background: linear-gradient(to right, #000, #0061FE);
          border-radius: 15px;
@@ -58,6 +55,7 @@
    </style>
 </head>
 <body>
+
    <!-- Back Button -->
    <button onclick="goBack()">Go Back</button>
 
@@ -73,9 +71,11 @@
       <div class="image-container">
          <img src="mg2.png" alt="Magazine Cover 2">
       </div>
-      <a href="https://drive.google.com/file/d/1U0faA0e0gcDKmfKp7Ph8k73TvqYGPaYi/view?usp=drivesdk">
+      <a href="https://drive.google.com/file/d/1U0faA0e0gcDKmfKp7Ph8k73TvqYGPaYi/view?usp=drivesdk" 
+         onclick="trackDownload('magazine1')">
          Download and View
       </a>
+      <p id="magazine1">Downloaded: 0 times</p>
    </div>
 
    <!-- Second Magazine -->
@@ -85,17 +85,36 @@
       <div class="image-container">
          <img src="mg.png" alt="Magazine Cover">
       </div>
-      <a href="https://drive.google.com/file/d/19jIub3NfXlbZ86HQwCG-l0wnIKNrYtQx/view?usp=drivesdk">
+      <a href="https://drive.google.com/file/d/19jIub3NfXlbZ86HQwCG-l0wnIKNrYtQx/view?usp=drivesdk" 
+         onclick="trackDownload('magazine2')">
          Download and View
       </a>
+      <p id="magazine2">Downloaded: 0 times</p>
    </div>
 
    <script>
+      // Function to track downloads using localStorage
+      function trackDownload(fileId) {
+         let count = localStorage.getItem(fileId) || 0;
+         count++;
+         localStorage.setItem(fileId, count);
+         document.getElementById(fileId).innerText = `Downloaded: ${count} times`;
+      }
+
+      // Load stored download counts on page load
+      function loadDownloadCounts() {
+         document.getElementById("magazine1").innerText = `Downloaded: ${localStorage.getItem("magazine1") || 0} times`;
+         document.getElementById("magazine2").innerText = `Downloaded: ${localStorage.getItem("magazine2") || 0} times`;
+      }
+
+      // Go back function
       function goBack() {
          window.history.back();
       }
+
+      // Load counts when the page is loaded
+      window.onload = loadDownloadCounts;
    </script>
+
 </body>
 </html>
-
- 
