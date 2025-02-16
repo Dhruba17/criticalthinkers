@@ -57,7 +57,7 @@
 <body>
 
    <!-- Back Button -->
-   <button onclick="goBack()">Go Back</button>
+  <a href="criticalthinker.pages.dev"><button>Go Back</button></a>
 
    <!-- Heading -->
    <center>
@@ -94,23 +94,11 @@
 
    <script>
       // Function to track downloads using localStorage
-      function trackDownload(fileId) {
-         let count = localStorage.getItem(fileId) || 0;
-         count++;
-         localStorage.setItem(fileId, count);
-         document.getElementById(fileId).innerText = `Downloaded: ${count} times`;
-      }
+      
 
       // Load stored download counts on page load
-      function loadDownloadCounts() {
-         document.getElementById("magazine1").innerText = `Downloaded: ${localStorage.getItem("magazine1") || 507} times`;
-         document.getElementById("magazine2").innerText = `Downloaded: ${localStorage.getItem("magazine2") || 190} times`;
-      }
-
+      
       // Go back function
-      function goBack() {
-         window.history.back();
-      }
 
       // Load counts when the page is loaded
       window.onload = loadDownloadCounts;
