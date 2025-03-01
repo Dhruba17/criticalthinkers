@@ -1,108 +1,122 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-   <meta charset="UTF-8">
-   <meta name="viewport" content="width=device-width, initial-scale=0.70">
-   <title>Magazine</title>
-   <style>
-      body {
-         background-color: black;
-         color: white;
-         font-family: Arial, sans-serif;
-      }
-      button {
-         margin-top: 20px;
-         padding: 10px 20px;
-         background-color: white;
-         color: black;
-         border: none;
-         cursor: pointer;
-         border-radius: 5px;
-      }
-      .content {
-         padding: 20px;
-         text-align: center;
-      }
-      a {
-         text-decoration: none;
-         background-image: linear-gradient(to right, #000, #0061FE); 
-         color: white;
-         padding: 10px 20px;
-         margin: 20px;
-         border-radius: 5px;
-         display: inline-block;
-         transition: background-color 0.3s ease; 
-      }
-      a:hover {
-         background-image: linear-gradient(to right, #0061FE, #000); 
-      }
-      h1 {
-         background: linear-gradient(to right, #000, #0061FE);
-         border-radius: 15px;
-         padding: 20px;
-         margin-top: 20px;
-      }
-      .image-container {
-         position: relative;
-         display: inline-block;
-         margin-bottom: 40px;
-      }
-      img {
-         width: 60%;
-         max-width: 600px;
-         border-radius: 10px;
-      }
-   </style>
-</head>
-<body>
+<!DOCTYPE html>  
+<html lang="en">  
+<head>  
+   <meta charset="UTF-8">  
+   <meta name="viewport" content="width=device-width, initial-scale=0.70">  
+   <title>Magazine</title>  
+   <style>  
+      body {  
+         background-color: black;  
+         color: white;  
+         font-family: Arial, sans-serif;  
+      }  
+      button {  
+         margin-top: 20px;  
+         padding: 10px 20px;  
+         background-color: white;  
+         color: black;  
+         border: none;  
+         cursor: pointer;  
+         border-radius: 5px;  
+      }  
+      .content {  
+         padding: 20px;  
+         text-align: center;  
+      }  
+      a {  
+         text-decoration: none;  
+         background-image: linear-gradient(to right, #000, #0061FE);   
+         color: white;  
+         padding: 10px 20px;  
+         margin: 20px;  
+         border-radius: 5px;  
+         display: inline-block;  
+         transition: background-color 0.3s ease;   
+      }  
+      a:hover {  
+         background-image: linear-gradient(to right, #0061FE, #000);   
+      }  
+      h1 {  
+         background: linear-gradient(to right, #000, #0061FE);  
+         border-radius: 15px;  
+         padding: 20px;  
+         margin-top: 20px;  
+      }  
+      .image-container {  
+         position: relative;  
+         display: inline-block;  
+         margin-bottom: 40px;  
+      }  
+      img {  
+         width: 60%;  
+         max-width: 600px;  
+         border-radius: 10px;  
+      }  
+   </style>  
+</head>  
+<body>  
+  
+   <!-- Back Button -->  
+  <a href="criticalthinker.pages.dev"><button>Go Back</button></a>  
+  
+   <!-- Heading -->  
+   <center>  
+      <h1>Magazine</h1>  
+   </center>  
+  
+   <!-- March Magazine -->  
+   <div class="content">  
+      <h2>Download the Magazine of March 2025 PDF</h2>  
+  
+      <div class="image-container">  
+         <img src="mg3.png" alt="Magazine Cover 3">  
+      </div>  
+      <a href="https://drive.google.com/file/d/1aUcGIJn9VE4HWKwXr3u8KmR7tlezMd3H/view?usp=drivesdk"   
+         onclick="trackDownload('magazine3')">  
+         Download and View  
+      </a>  
+      <p id="magazine3">Downloaded: 0 times</p>  
+   </div>  
 
-   <!-- Back Button -->
-  <a href="criticalthinker.pages.dev"><button>Go Back</button></a>
-
-   <!-- Heading -->
-   <center>
-      <h1>Magazine</h1>
-   </center>
-
-   <!-- First Magazine -->
-   <div class="content">
-      <h2>Download the Magazine of February 2025 PDF</h2>
-
-      <div class="image-container">
-         <img src="mg2.png" alt="Magazine Cover 2">
-      </div>
-      <a href="https://drive.google.com/file/d/1U0faA0e0gcDKmfKp7Ph8k73TvqYGPaYi/view?usp=drivesdk" 
-         onclick="trackDownload('magazine1')">
-         Download and View
-      </a>
-      <p id="magazine1">Downloaded: 507 times</p>
-   </div>
-
-   <!-- Second Magazine -->
-   <div class="content">
-      <h2>Download the Magazine of January 2025</h2>
-
-      <div class="image-container">
-         <img src="mg.png" alt="Magazine Cover">
-      </div>
-      <a href="https://drive.google.com/file/d/19jIub3NfXlbZ86HQwCG-l0wnIKNrYtQx/view?usp=drivesdk" 
-         onclick="trackDownload('magazine2')">
-         Download and View
-      </a>
-      <p id="magazine2">Downloaded: 190 times</p>
-   </div>
-
-   <script>
-      // Function to track downloads using localStorage
-      
-
-      // Load stored download counts on page load
-      
-      // Go back function
-
-      // Load counts when the page is loaded
-      window.onload = loadDownloadCounts;
-   </script>
-
-</body>
+   <!-- February Magazine -->  
+   <div class="content">  
+      <h2>Download the Magazine of February 2025 PDF</h2>  
+  
+      <div class="image-container">  
+         <img src="mg2.png" alt="Magazine Cover 2">  
+      </div>  
+      <a href="https://drive.google.com/file/d/1U0faA0e0gcDKmfKp7Ph8k73TvqYGPaYi/view?usp=drivesdk"   
+         onclick="trackDownload('magazine1')">  
+         Download and View  
+      </a>  
+      <p id="magazine1">Downloaded: 507 times</p>  
+   </div>  
+  
+   <!-- January Magazine -->  
+   <div class="content">  
+      <h2>Download the Magazine of January 2025</h2>  
+  
+      <div class="image-container">  
+         <img src="mg.png" alt="Magazine Cover">  
+      </div>  
+      <a href="https://drive.google.com/file/d/19jIub3NfXlbZ86HQwCG-l0wnIKNrYtQx/view?usp=drivesdk"   
+         onclick="trackDownload('magazine2')">  
+         Download and View  
+      </a>  
+      <p id="magazine2">Downloaded: 190 times</p>  
+   </div>  
+  
+   <script>  
+      // Function to track downloads using localStorage  
+        
+  
+      // Load stored download counts on page load  
+        
+      // Go back function  
+  
+      // Load counts when the page is loaded  
+      window.onload = loadDownloadCounts;  
+   </script>  
+  
+</body>  
 </html>
