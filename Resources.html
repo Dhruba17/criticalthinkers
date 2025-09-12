@@ -4,203 +4,259 @@
    <meta charset="UTF-8">
    <meta name="viewport" content="width=device-width, initial-scale=1.0">
    <title>Resources</title>
-   <!-- Font Awesome CDN for icons -->
    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
    <style>
       body {
-         background-color: #121212;
+         background-color: #0d0d0d;
          margin: 0;
          padding: 0;
-         font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-         color: #f0f0f0;
+         font-family: 'Poppins', sans-serif;
+         color: #e0e0e0;
+         line-height: 1.6;
+         overflow-x: hidden;
       }
       h1 {
          text-align: center;
-         margin: 20px 0;
-         padding: 20px;
-         background: linear-gradient(to right, #1f4037, #99f2c8);
-         border-radius: 15px;
-         font-size: 32px;
-         color: white;
-         text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.6);
+         margin: 40px 0 20px;
+         padding: 25px;
+         background: linear-gradient(135deg, #1a2a6c, #b21f1f, #fdbb2d);
+         -webkit-background-clip: text;
+         -webkit-text-fill-color: transparent;
+         font-size: 44px;
+         font-weight: 700;
+         text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+      }
+      .container {
+         max-width: 1100px;
+         margin: auto;
+         padding: 0 20px;
       }
       .back-button {
          position: fixed;
-         top: 20px;
-         left: 20px;
+         top: 25px;
+         left: 25px;
          color: white;
-         font-size: 24px;
+         font-size: 20px;
          text-decoration: none;
-         background-color: #1f4037;
-         padding: 10px 15px;
-         border-radius: 5px;
-         box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
-         transition: background 0.3s, transform 0.2s, color 0.3s;
+         background-color: #2c3e50;
+         padding: 12px 18px;
+         border-radius: 50px;
+         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+         transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+         z-index: 1000;
+         display: flex;
+         align-items: center;
+         gap: 8px;
       }
       .back-button:hover {
-         background-color: #99f2c8;
-         color: black;
-         transform: scale(1.1);
+         background-color: #34495e;
+         transform: scale(1.05);
+         box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+      }
+      .info-box, .resource-section {
+         background: rgba(30, 30, 30, 0.8);
+         border-radius: 15px;
+         padding: 30px;
+         margin: 25px 0;
+         box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+         border: 1px solid rgba(255, 255, 255, 0.1);
+         backdrop-filter: blur(10px);
+         -webkit-backdrop-filter: blur(10px);
+         transition: transform 0.3s ease-in-out;
+      }
+      .info-box:hover, .resource-section:hover {
+         transform: translateY(-5px);
       }
       .info-box {
-         background: #1f4037;
-         margin: 20px auto;
-         padding: 20px;
          text-align: center;
-         border-radius: 10px;
-         max-width: 1000px;
-         color: #f0f0f0;
-         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
       }
       .info-box a {
-         color: #99f2c8;
+         color: #4a90e2;
          text-decoration: none;
          font-weight: bold;
+         transition: color 0.3s;
       }
       .info-box a:hover {
-         text-decoration: underline;
-      }
-      .resource-section {
-         background-color: #1f4037;
-         margin: 20px auto;
-         padding: 20px;
-         border-radius: 10px;
-         color: white;
-         box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+         color: #8cdeff;
       }
       .resource-section h2 {
-         color: #99f2c8;
-         margin-bottom: 15px;
+         color: #fdbb2d;
+         border-bottom: 2px solid rgba(253, 187, 45, 0.5);
+         padding-bottom: 10px;
+         margin-bottom: 20px;
+         font-size: 28px;
       }
       ul {
          list-style-type: none;
          padding: 0;
-      }
-      li {
-         margin: 10px 0;
+         display: grid;
+         gap: 15px;
       }
       li a {
-         color: #f0f0f0;
+         color: #e0e0e0;
          text-decoration: none;
-         font-size: 18px;
-         padding: 10px 15px;
-         border: 1px solid #99f2c8;
-         border-radius: 5px;
-         transition: background 0.3s, color 0.3s;
-         display: inline-block;
+         font-size: 17px;
+         padding: 12px 20px;
+         background: #2b2b2b;
+         border: 1px solid #444;
+         border-radius: 8px;
+         transition: all 0.3s ease;
+         display: block;
+         display: flex;
+         align-items: center;
+         gap: 10px;
       }
       li a:hover {
-         color: black;
-         background: #99f2c8;
+         background: linear-gradient(45deg, #1e3c72, #2a5298);
+         border-color: #4a90e2;
+         transform: translateX(5px);
+         color: white;
+         box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+      }
+      .link-icon {
+         color: #fdbb2d;
+         font-size: 1.2em;
+         transition: transform 0.3s ease;
+      }
+      li a:hover .link-icon {
+         transform: rotate(45deg);
+      }
+      .special-resource {
+         text-align: center;
+         margin: 40px auto;
+      }
+      .special-resource h2 {
+         font-size: 28px;
+         color: #99f2c8;
+      }
+      .special-button {
+         display: inline-block;
+         padding: 20px 40px;
+         font-size: 22px;
+         font-weight: 600;
+         text-decoration: none;
+         color: white;
+         background-image: linear-gradient(45deg, #2b5876, #4e4376);
+         border: none;
+         border-radius: 10px;
+         box-shadow: 0 10px 20px rgba(0, 0, 0, 0.5);
+         transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+         text-transform: uppercase;
+         letter-spacing: 1.5px;
+      }
+      .special-button:hover {
+         transform: translateY(-5px);
+         box-shadow: 0 15px 30px rgba(0, 0, 0, 0.6);
+         background-image: linear-gradient(45deg, #3a6073, #6a5a8a);
       }
       .footer {
          text-align: center;
-         padding: 20px;
-         margin-top: 20px;
-         background-color: #1f4037;
-         color: white;
+         padding: 25px;
+         margin-top: 40px;
+         background-color: #1a1a1a;
+         color: #888;
          font-size: 14px;
-         border-top: 2px solid #99f2c8;
+         border-top: 2px solid #222;
       }
       @media (max-width: 768px) {
          h1 {
-            font-size: 26px;
+            font-size: 36px;
          }
-         li a {
-            font-size: 16px;
+         .special-button {
+            padding: 15px 30px;
+            font-size: 18px;
          }
          .back-button {
-            font-size: 24px;
-         }
-         .info-box {
-            font-size: 16px;
+            font-size: 18px;
+            padding: 10px 15px;
+            top: 15px;
+            left: 15px;
          }
       }
       @media (max-width: 480px) {
          h1 {
-            font-size: 22px;
+            font-size: 28px;
+         }
+         .resource-section h2 {
+            font-size: 24px;
          }
          li a {
-            font-size: 14px;
-            padding: 8px 12px;
-         }
-         .info-box {
-            font-size: 14px;
-            padding: 15px;
+            font-size: 15px;
+            padding: 10px 15px;
          }
       }
    </style>
+   <link rel="preconnect" href="https://fonts.googleapis.com">
+   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;700&display=swap" rel="stylesheet">
 </head>
 <body>
-   <!-- Back button -->
-   <a class="back-button" onclick="goBack()"><i class="fas fa-arrow-left"></i> Back</a>
-   <script>
-      function goBack() {
-         window.location.href = "https://criticalthinker.pages.dev/";
-      }
-   </script>
+   <a class="back-button" href="https://criticalthinker.pages.dev/">
+      <i class="fas fa-arrow-left"></i> Back
+   </a>
 
-   <!-- Header -->
-   <h1>Resources</h1>
+   <div class="container">
+      <h1>Olympiad Resources</h1>
 
-   <!-- Info Box -->
-   <div class="info-box">
-      <p>
-         This is a compilation of resources that any Mathematical Olympiad or Physics Olympiad student or teacher might find helpful. 
-         If you have any suggestions, questions, or comments, please email us at: 
-         <a href="mailto:critical.thinking.institution@gmail.com">critical.thinking.institution@gmail.com</a>
-      </p>
+      <div class="info-box">
+         <p>
+            This is a compilation of resources that any Mathematical Olympiad or Physics Olympiad student or teacher might find helpful. 
+            If you have any suggestions, questions, or comments, please email us at: 
+            <a href="mailto:critical.thinking.institution@gmail.com">critical.thinking.institution@gmail.com</a>
+         </p>
+      </div>
+
+      <div class="special-resource">
+         <h2>BDMO Old Question Archive</h2>
+         <a href="https://1drv.ms/f/c/6cf3550aa243dd42/QkLdQ6IKVfMggGxfXgAAAAAAtZkPgJ4RNA67jQ" target="_blank" class="special-button">
+            <i class="fas fa-download"></i> BDMO OLD QUESTIONS
+         </a>
+      </div>
+
+      <div class="resource-section">
+         <h2><i class="fas fa-link"></i> Meta-resources</h2>
+         <ul>
+            <li><a href="https://people.bath.ac.uk/masgcs/advice.html" target="_blank"><i class="fas fa-file-alt link-icon"></i> Advice for Young Mathematicians by Geoff Smith</a></li>
+            <li><a href="https://yufeizhao.com/olympiad/" target="_blank"><i class="fas fa-user link-icon"></i> Yufei Zhao</a></li>
+            <li><a href="https://www.dropbox.com/scl/fo/15uaax1iara306bd8i6cv/AG8WfXZyO2rr3X_ZAvhivLk?rlkey=pj8a2d3yf4q5nbkheuc2gvcov&e=1&dl=0" target="_blank"><i class="fas fa-folder link-icon"></i> Handouts from national camps and elsewhere</a></li>
+            <li><a href="https://www.cut-the-knot.org/" target="_blank"><i class="fas fa-puzzle-piece link-icon"></i> Alexander Bogomolny: Cut the Knot</a></li>
+         </ul>
+      </div>
+
+      <div class="resource-section">
+         <h2><i class="fas fa-book-open"></i> Resources of All Topics</h2>
+         <ul>
+            <li><a href="https://drive.google.com/file/d/1ijcNoBfJ130p-r-bMsc97H0SeyIN9Ed4/view?usp=drivesdk" target="_blank"><i class="fas fa-book link-icon"></i> Olympiad Stuff You Should Know</a></li>
+            <li><a href="https://www.isinj.com/mt-usamo/Math%20Olympiad%20Dark%20Arts%20-%20Goucher%20(2012).pdf" target="_blank"><i class="fas fa-magic link-icon"></i> Mathematical Olympiad Dark Arts</a></li>
+            <li><a href="https://kheavan.files.wordpress.com/2010/06/paul-zeitz-author-the-art-and-craft-of-problem-solving-2edwiley20060471789011.pdf" target="_blank"><i class="fas fa-drafting-compass link-icon"></i> The Art and Craft of Problem Solving</a></li>
+         </ul>
+      </div>
+
+      <div class="resource-section">
+         <h2><i class="fas fa-shapes"></i> Geometry</h2>
+         <ul>
+            <li><a href="https://drive.google.com/file/d/1D-1rDK4iA_wPQEmGncF5qi74aZ--pkRN/view?usp=drivesdk" target="_blank"><i class="fas fa-angle-left link-icon"></i> A Beautiful Journey Through Olympiad Geometry</a></li>
+            <li><a href="https://drive.google.com/file/d/1CwJK_nGeKM24Q9ffWz_GUlZyxrTukwVH/view?usp=drivesdk" target="_blank"><i class="fas fa-ruler-combined link-icon"></i> Euclidian Geometry in Mathematical Olympiad</a></li>
+            <li><a href="https://drive.google.com/file/d/1D0wLKo2PSjhtzqtMcluB9rQHItGZkV7J/view?usp=drivesdk" target="_blank"><i class="fas fa-square-root-alt link-icon"></i> (AoPS) Introduction to Geometry</a></li>
+            <li><a href="https://drive.google.com/file/d/1DGSFEvcKSdVW5HGPLl7v_zNb9b7WGX2L/view?usp=drivesdk" target="_blank"><i class="fas fa-chart-area link-icon"></i> 100 Geometry Problems</a></li>
+         </ul>
+      </div>
+
+      <div class="resource-section">
+         <h2><i class="fas fa-sitemap"></i> Combinatorics</h2>
+         <ul>
+            <li><a href="https://drive.google.com/drive/folders/1CnTyUsuov5ebMTR1e2bQ1bpug4NpVNNh" target="_blank"><i class="fas fa-cubes link-icon"></i> Olympiad Combinatorics (Part 1, 2, 3)</a></li>
+         </ul>
+      </div>
+      
+      <div class="resource-section">
+         <h2><i class="fas fa-ellipsis-h"></i> Others</h2>
+         <ul>
+            <li><a href="https://drive.google.com/file/d/1DX5uj4mch3kZsbKMMle5qgnKR04Ftz-p/view?usp=drivesdk" target="_blank"><i class="fas fa-cogs link-icon"></i> The book of Formula and strategies</a></li>
+         </ul>
+      </div>
    </div>
 
-   <!-- Meta-resources Section -->
-   <div class="resource-section">
-      <h2>Meta-resources</h2>
-      <ul>
-         <li><a href="https://people.bath.ac.uk/masgcs/advice.html" target="_blank">• Advice for Young Mathematicians by Geoff Smith</a></li>
-         <li><a href="https://yufeizhao.com/olympiad/" target="_blank">• Yufei Zhao</a></li>
-         <li><a href="https://www.dropbox.com/scl/fo/15uaax1iara306bd8i6cv/AG8WfXZyO2rr3X_ZAvhivLk?rlkey=pj8a2d3yf4q5nbkheuc2gvcov&e=1&dl=0" target="_blank">• Handouts from national camps and elsewhere</a></li>
-         <li><a href="https://www.cut-the-knot.org/" target="_blank">• Alexander Bogomolny: Cut the Knot</a></li>
-      </ul>
-   </div>
-
-   <!-- Resources Section -->
-   <div class="resource-section">
-      <h2>Resources of All Topics</h2>
-      <ul>
-         <li><a href="https://drive.google.com/file/d/1ijcNoBfJ130p-r-bMsc97H0SeyIN9Ed4/view?usp=drivesdk" target="_blank">• Olympiad Stuff You Should Know</a></li>
-         <li><a href="https://www.isinj.com/mt-usamo/Math%20Olympiad%20Dark%20Arts%20-%20Goucher%20(2012).pdf" target="_blank">• Mathematical Olympiad Dark Arts</a></li>
-         <li><a href="https://kheavan.files.wordpress.com/2010/06/paul-zeitz-author-the-art-and-craft-of-problem-solving-2edwiley20060471789011.pdf" target="_blank">• The Art and Craft of Problem Solving</a></li>
-      </ul>
-   </div>
-
-   <!-- Geometry Section -->
-   <div class="resource-section">
-      <h2>Geometry</h2>
-      <ul>
-         <li><a href="https://drive.google.com/file/d/1D-1rDK4iA_wPQEmGncF5qi74aZ--pkRN/view?usp=drivesdk" target="_blank">• A Beautiful Journey Through Olympiad Geometry</a></li>
-         <li><a href="https://drive.google.com/file/d/1CwJK_nGeKM24Q9ffWz_GUlZyxrTukwVH/view?usp=drivesdk" target="_blank">• Euclidian Geometry in Mathematical Olympiad</a></li>
-         <li><a href="https://drive.google.com/file/d/1D0wLKo2PSjhtzqtMcluB9rQHItGZkV7J/view?usp=drivesdk" target="_blank">• (AoPS) Introduction to Geometry</a></li>
-         <li><a href="https://drive.google.com/file/d/1DGSFEvcKSdVW5HGPLl7v_zNb9b7WGX2L/view?usp=drivesdk" target="_blank">• 100 Geometry Problems</a></li>
-      </ul>
-   </div>
-
-   <!-- Combinatorics Section -->
-   <div class="resource-section">
-      <h2>Combinatorics</h2>
-      <ul>
-         <li><a href="https://drive.google.com/drive/folders/1CnTyUsuov5ebMTR1e2bQ1bpug4NpVNNh" target="_blank">• Olympiad Combinatorics (Part 1, 2, 3)</a></li>
-      </ul>
-   </div>
-   
-   <!-- Others Section -->
-   <div class="resource-section">
-      <h2>Others</h2>
-      <ul>
-         <li><a href="https://drive.google.com/file/d/1DX5uj4mch3kZsbKMMle5qgnKR04Ftz-p/view?usp=drivesdk" target="_blank">• The book of Formula and strategies</a></li>
-      </ul>
-   </div>
-
-   <!-- Footer -->
    <div class="footer">
       &copy; 2025 Critical Thinking Institution. All rights reserved.
    </div>
