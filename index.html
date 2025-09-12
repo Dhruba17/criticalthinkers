@@ -1,67 +1,108 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=0.70">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Critical Thinkers</title>
     <link rel="icon" href="ab.png" type="image/png">
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css" rel="stylesheet">
     <style>
         /* General body styling */
         body {
             background-color: black;
             margin: 0;
-            font-family: Arial, sans-serif;
+            padding: 0;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
             color: white;
+            line-height: 1.6;
         }
 
-        /* Header container */
+        h1 {
+            text-align: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: linear-gradient(to right, #4169E1, #FFC120);
+            border-radius: 15px;
+            font-size: clamp(24px, 5vw, 32px);
+            color: black;
+            text-shadow: 2px 2px 4px rgba(255, 255, 255, 0.4);
+        }
+
+        .info-box, .section, .magazine-section, .footer {
+            background: #4169E1;
+            margin: 20px auto;
+            padding: 20px;
+            border-radius: 10px;
+            max-width: 1000px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+        }
+
+        .info-box, .section {
+            text-align: center;
+        }
+
+        .resource-section h2, .section h2 {
+            color: #FFC120;
+            margin-bottom: 15px;
+            font-size: clamp(20px, 4vw, 24px);
+        }
+
+        .footer {
+            background: #4169E1;
+            text-align: center;
+            padding: 20px;
+            margin-top: 20px;
+            color: white;
+            font-size: clamp(12px, 2vw, 14px);
+            border-top: 2px solid #FFC120;
+        }
+
+        /* Header and Nav */
         .header {
             display: flex;
-            align-items: center;
+            flex-wrap: wrap;
             justify-content: space-between;
-            padding: 20px;
+            align-items: center;
+            padding: 15px;
+            background-color: black;
         }
 
-        /* Logo and title container */
         .logo-container {
             display: flex;
             align-items: center;
+            flex-grow: 1;
         }
 
-        /* Logo image size */
         .logo img {
-            width: 50px;
+            width: clamp(40px, 8vw, 50px);
             height: auto;
         }
 
-        /* Title styling */
-        .a {
+        .a h2 {
             margin-left: 10px;
+            font-weight: bold;
+            font-size: clamp(22px, 5vw, 27px);
+            color: #FFC120;
         }
-
-        /* Menu icon styling */
+        
         .menu-icon {
             color: white;
-            font-size: 25px;
+            font-size: clamp(20px, 5vw, 25px);
             cursor: pointer;
             position: relative;
+            z-index: 1001;
         }
 
-        .menu-icon a {
-            color: white;
-            text-decoration: none;
-        }
-
-        /* Dropdown menu styling */
         .dropdown-content {
             display: none;
             position: absolute;
-            background-color: #333;
+            background-color: #4169E1;
             min-width: 160px;
-            z-index: 1;
+            z-index: 1000;
             border-radius: 5px;
-            top: 35px;
+            top: 100%;
             right: 0;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
         }
 
         .dropdown-content a {
@@ -72,62 +113,45 @@
         }
 
         .dropdown-content a:hover {
-            background-color: #575757;
+            background-color: #4169E1;
+            color: #FFC120;
         }
 
         .menu-icon:hover .dropdown-content {
             display: block;
         }
 
-        /* Clock styling */
         .clock {
-            font-size: 18px;
+            font-size: clamp(14px, 3vw, 18px);
             color: white;
-            background: linear-gradient(to right, black, #78ffd6);
+            background: #4169E1;
             padding: 10px 20px;
             border-radius: 20px;
             text-align: center;
-            width: 20%;
-            position: absolute;
-            left: 70%;
-            transform: translateX(-50%);
+            width: auto;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            margin-top: 10px;
+            order: 3;
+            flex-basis: 100%;
         }
 
-        /* Main content section */
-        .b {
-            color: white;
-            background-color: #212121;
-            padding: 10px;
-            border-radius: 20px;
-            text-align: center;
-            margin-top: 15px;
-        }
-
-        /* Section Styling */
-        .section {
-            background-color: #333;
-            margin-top: 20px;
-            border-radius: 10px;
-            padding: 15px;
-        }
-
-        .section h3 {
-            text-align: center;
-        }
-
-        /* Responsive Design */
-        @media (max-width: 768px) {
+        @media (min-width: 768px) {
             .header {
-                flex-direction: row;
-                flex-wrap: wrap;
-                align-items: center;
+                flex-wrap: nowrap;
+            }
+            .logo-container {
+                flex-grow: 0;
             }
             .menu-icon {
                 margin-left: auto;
             }
+            .clock {
+                order: initial;
+                flex-basis: auto;
+                margin-left: 20px;
+            }
         }
-
-        /* Buttons container */
+        
         .button-container {
             margin-top: 20px;
             text-align: center;
@@ -137,63 +161,85 @@
             display: inline-block;
             padding: 10px 20px;
             margin: 5px;
-            font-size: 16px;
+            font-size: clamp(14px, 3vw, 16px);
             font-weight: bold;
             text-decoration: none;
             color: white;
-            background: linear-gradient(to bottom, #000, #ffff);
+            background: #4169E1;
             border-radius: 20px;
-            transition: background 0.3s ease;
+            transition: background 0.3s ease, color 0.3s;
+            border: 1px solid #FFC120;
         }
 
+        .button-container a:hover {
+            background: #FFC120;
+            color: black;
+        }
 
-.Magazine12025 {
-  background: linear-gradient(to bottom, #37983E, #C1C6D1, #ffffff); /* Updated to a visible color instead of #0000 */
-  background-size: 200% 100%; /* Ensures the gradient is large enough to animate */
-  padding: 50px 0;
-  text-align: center;
-  border-radius: 15px;
-  margin-top: 20px;
-  margin-bottom: 10px;
-  animation: gradient-animation 2s ease infinite;
-}
-@keyframes gradient-animation {
-  0% {
-    background-position: 04% 50%;
-  }
-  50% {
-    background-position: 100% 50%;
-  }
-  100% {
-    background-position:40% 50%;
-  }
-}
+        .magazine-section {
+            padding: 40px 20px;
+            text-align: center;
+        }
 
-        .Magazine12025 img {
-            width: 60%;
+        .magazine-section h1 {
+            background: none;
+            font-size: clamp(20px, 5vw, 28px);
+            color: #FFC120;
+            text-shadow: none;
+            margin: 0 0 20px 0;
+        }
+
+        .magazine-section img {
+            width: 80%;
             max-width: 600px;
             border-radius: 10px;
             margin-top: 20px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            height: auto;
         }
+
+        .download-button {
+            margin-top: 40px;
+            width: auto;
+            background-color: #FFC120;
+            border: 2px solid #FFC120;
+            border-radius: 5px;
+            color: black;
+            padding: 10px 20px;
+            font-size: clamp(16px, 4vw, 18px);
+            font-weight: 600;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+            display: inline-block;
+        }
+
+        .download-button:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 6px 12px rgba(0, 0, 0, 0.4);
+        }
+
+        .download-button i {
+            margin-right: 8px;
+        }
+
     </style>
 </head>
 <body>
-    <script async src="https://cse.google.com/cse.js?cx=d6f0cb7caaf764c2b">
-</script>
-<div class="gcse-search"></div>
-    <!-- Header Section -->
-    <div class="x"> 
+    <script async src="https://cse.google.com/cse.js?cx=d6f0cb7caaf764c2b"></script>
+    <div class="gcse-search"></div>
+
+    <div class="x">
         <div class="header">
             <div class="logo-container">
                 <div class="logo">
                     <img src="ab.png" alt="logo">
                 </div>
-                <div class="a">                 
-                    <h2 style="font-weight:bold;font-size:27px">Critical Thinkers</h2>
+                <div class="a">
+                    <h2>Critical Thinkers</h2>
                 </div>
             </div>
             <div class="menu-icon">
-                <a href="javascript:void(0)">&#x22EE;</a>
+                <a href="javascript:void(0)"><i class="fas fa-bars"></i></a>
                 <div class="dropdown-content">
                     <a href="index.html">Home</a>
                     <a href="Resources.html">Resources</a>
@@ -209,7 +255,6 @@
         </div>
     </div>
 
-    <!-- Buttons Section -->
     <div class="button-container">
         <a href="index.html">Home</a>
         <a href="Resources.html">Resources</a>
@@ -217,35 +262,24 @@
         <a href="Team.html">Team</a>
     </div>
 
-    <center>
-        <h1 style="background: linear-gradient(to right, black, white); border-radius:15px; padding:20px; margin-top:20px;">Blogs</h1>
-    </center>
+    <main>
+        <center>
+            <h1>Blogs</h1>
+        </center>
 
-    <!-- Main Content Section -->
-    <div class="Magazine12025">
-        <center>
-            <h1 style="color:black;">Critical Thinkers 2025 January Magazine Has Been Published !</h1>
-            <img src="mg.png" alt="Magazine Cover">
-        </center>
-        
-        <!-- Download Button -->
-        <center>
-            <button onclick="window.location.href='https://drive.google.com/file/d/19jIub3NfXlbZ86HQwCG-l0wnIKNrYtQx/view?usp=drivesdk';" 
-                style="margin-top: 40px;
-                margin-bottom: 15px;
-                width: 40%;    
-                background: rgba(0, 0, 0, 0.22);
-                border: 2px solid #383634;
-                border-radius: 5px;
-                color: #e1e1e1;
-                padding: 8px 15px;
-                font-size: 18px;
-                font-weight: 600;
-                cursor: pointer;">
-                Download
-            </button>
-        </center>
-    </div>
+        <div class="magazine-section">
+            <center>
+                <h1>Critical Thinkers 2025 January Magazine Has Been Published!</h1>
+                <img src="mg.png" alt="Magazine Cover">
+            </center>
+            
+            <center>
+                <button onclick="window.location.href='https://drive.google.com/file/d/19jIub3NfXlbZ86HQwCG-l0wnIKNrYtQx/view?usp=drivesdk';" class="download-button">
+                    <i class="fas fa-download"></i> Download
+                </button>
+            </center>
+        </div>
+    </main>
 
     <script>
         function updateClock() {
@@ -261,5 +295,9 @@
         setInterval(updateClock, 1000);
         updateClock();
     </script>
+
+    <div class="footer">
+        &copy; 2025 Critical Thinking Institution. All rights reserved.
+    </div>
 </body>
 </html>
