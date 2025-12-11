@@ -181,93 +181,8 @@
             box-shadow: 0 0 20px rgba(0, 255, 170, 0.5);
         }
 
-        /* Menu & Dropdown */
-        .menu-icon {
-            position: relative;
-            z-index: 1001;
-        }
-
-        .menu-icon a {
-            color: var(--text);
-            font-size: clamp(22px, 5vw, 26px);
-            transition: var(--transition);
-            padding: 10px;
-            display: block;
-        }
-
-        .menu-icon a:hover {
-            color: var(--secondary);
-            transform: rotate(90deg);
-        }
-
-        .dropdown-content {
-            display: none;
-            position: absolute;
-            background: rgba(15, 25, 40, 0.95);
-            backdrop-filter: blur(15px);
-            min-width: 220px;
-            z-index: 1000;
-            border-radius: 12px;
-            top: 100%;
-            right: 0;
-            box-shadow: var(--glow);
-            border: 1px solid var(--card-border);
-            overflow: hidden;
-            transform-origin: top right;
-            animation: dropdownAppear 0.3s ease;
-        }
-
-        @keyframes dropdownAppear {
-            from { opacity: 0; transform: scale(0.8) translateY(-10px); }
-            to { opacity: 1; transform: scale(1) translateY(0); }
-        }
-
-        .dropdown-content a {
-            color: var(--text);
-            padding: 15px 20px;
-            text-decoration: none;
-            display: block;
-            border-bottom: 1px solid rgba(0, 217, 255, 0.1);
-            transition: var(--transition);
-            position: relative;
-            overflow: hidden;
-        }
-
-        .dropdown-content a:last-child {
-            border-bottom: none;
-        }
-
-        .dropdown-content a::before {
-            content: '';
-            position: absolute;
-            left: -100%;
-            top: 0;
-            width: 100%;
-            height: 100%;
-            background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
-            transition: left 0.5s ease;
-        }
-
-        .dropdown-content a:hover {
-            background: rgba(0, 217, 255, 0.1);
-            color: var(--accent-alt);
-            padding-left: 30px;
-        }
-
-        .dropdown-content a:hover::before {
-            left: 100%;
-        }
-
-        .dropdown-content a i {
-            margin-right: 10px;
-            width: 20px;
-            text-align: center;
-        }
-
-        .menu-icon:hover .dropdown-content {
-            display: block;
-        }
-
+        
+        
         /* ===== Back Button ===== */
         .back-button {
             position: fixed;
@@ -920,19 +835,7 @@
             <h2>Critical Thinkers</h2>
         </div>
         
-        <div class="menu-icon">
-            <a href="javascript:void(0)"><i class="fas fa-bars"></i></a>
-            <div class="dropdown-content">
-                <a href="index.html"><i class="fas fa-home"></i> Home</a>
-                <a href="Resources.html"><i class="fas fa-book"></i> Resources</a>
-                <a href="Magazine.html"><i class="fas fa-newspaper"></i> Magazine</a>
-                <a href="Archive.html"><i class="fas fa-archive"></i> Archive</a>
-                <a href="Team.html"><i class="fas fa-users"></i> Team</a>
-                <a href="Contact.html"><i class="fas fa-envelope"></i> Contact</a>
-                <a href="myprofile.html"><i class="fas fa-user"></i> My Profile</a>
-                <a href="discuss.html"><i class="fas fa-comments"></i> Discuss</a>
-            </div>
-        </div>
+        
         
         <div id="clock" class="clock"></div>
     </div>
