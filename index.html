@@ -181,93 +181,6 @@ h2::after {
     box-shadow: 0 0 20px rgba(0, 255, 170, 0.5);
 }
 
-/* Menu & Dropdown */
-.menu-icon {
-    position: relative;
-    z-index: 1001;
-}
-
-.menu-icon a {
-    color: var(--text);
-    font-size: clamp(22px, 5vw, 26px);
-    transition: var(--transition);
-    padding: 10px;
-    display: block;
-}
-
-.menu-icon a:hover {
-    color: var(--secondary);
-    transform: rotate(90deg);
-}
-
-.dropdown-content {
-    display: none;
-    position: absolute;
-    background: rgba(20, 20, 40, 0.95);
-    backdrop-filter: blur(15px);
-    min-width: 220px;
-    z-index: 1000;
-    border-radius: 12px;
-    top: 100%;
-    right: 0;
-    box-shadow: var(--glow);
-    border: 1px solid var(--card-border);
-    overflow: hidden;
-    transform-origin: top right;
-    animation: dropdownAppear 0.3s ease;
-}
-
-@keyframes dropdownAppear {
-    from { opacity: 0; transform: scale(0.8) translateY(-10px); }
-    to { opacity: 1; transform: scale(1) translateY(0); }
-}
-
-.dropdown-content a {
-    color: var(--text);
-    padding: 15px 20px;
-    text-decoration: none;
-    display: block;
-    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
-    transition: var(--transition);
-    position: relative;
-    overflow: hidden;
-}
-
-.dropdown-content a:last-child {
-    border-bottom: none;
-}
-
-.dropdown-content a::before {
-    content: '';
-    position: absolute;
-    left: -100%;
-    top: 0;
-    width: 100%;
-    height: 100%;
-    background: linear-gradient(90deg, transparent, rgba(0, 217, 255, 0.1), transparent);
-    transition: left 0.5s ease;
-}
-
-.dropdown-content a:hover {
-    background: rgba(0, 217, 255, 0.1);
-    color: var(--accent);
-    padding-left: 30px;
-}
-
-.dropdown-content a:hover::before {
-    left: 100%;
-}
-
-.dropdown-content a i {
-    margin-right: 10px;
-    width: 20px;
-    text-align: center;
-}
-
-.menu-icon:hover .dropdown-content {
-    display: block;
-}
-
 /* ===== Main Navigation Buttons ===== */
 .button-container {
     display: flex;
@@ -427,6 +340,7 @@ main {
     border: 1px solid var(--card-border);
     align-self: flex-start;
     margin-top: 15px;
+    cursor: pointer;
 }
 
 .read-more:hover {
@@ -434,6 +348,140 @@ main {
     color: var(--accent);
     transform: translateX(5px);
     box-shadow: 0 0 15px rgba(0, 217, 255, 0.3);
+}
+
+/* ===== Blog Modal/Popup ===== */
+.modal-overlay {
+    display: none;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    backdrop-filter: blur(10px);
+    z-index: 2000;
+    opacity: 0;
+    transition: opacity 0.3s ease;
+}
+
+.modal-overlay.active {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    opacity: 1;
+}
+
+.blog-modal {
+    background: var(--card-bg);
+    border-radius: 20px;
+    width: 90%;
+    max-width: 800px;
+    max-height: 85vh;
+    overflow-y: auto;
+    border: 1px solid var(--card-border);
+    box-shadow: 0 0 40px rgba(0, 217, 255, 0.4);
+    position: relative;
+    animation: modalAppear 0.4s ease;
+    backdrop-filter: blur(20px);
+}
+
+@keyframes modalAppear {
+    from { opacity: 0; transform: scale(0.9) translateY(-20px); }
+    to { opacity: 1; transform: scale(1) translateY(0); }
+}
+
+.modal-header {
+    padding: 25px 30px;
+    border-bottom: 1px solid var(--card-border);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background: rgba(0, 0, 0, 0.3);
+    position: sticky;
+    top: 0;
+    z-index: 1;
+}
+
+.modal-header h2 {
+    color: var(--secondary);
+    margin: 0;
+    font-size: 1.8rem;
+}
+
+.close-modal {
+    background: none;
+    border: none;
+    color: var(--text);
+    font-size: 1.8rem;
+    cursor: pointer;
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    transition: var(--transition);
+    background: rgba(255, 255, 255, 0.1);
+}
+
+.close-modal:hover {
+    color: var(--accent);
+    transform: rotate(90deg);
+    background: rgba(255, 255, 255, 0.2);
+}
+
+.modal-image {
+    height: 300px;
+    width: 100%;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.3), rgba(0, 170, 255, 0.3));
+    position: relative;
+    overflow: hidden;
+}
+
+.modal-content {
+    padding: 30px;
+}
+
+.modal-meta {
+    display: flex;
+    justify-content: space-between;
+    color: var(--accent);
+    margin-bottom: 25px;
+    padding-bottom: 20px;
+    border-bottom: 1px solid rgba(0, 217, 255, 0.1);
+    font-size: 0.95rem;
+}
+
+.modal-meta span {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+}
+
+.modal-text {
+    color: var(--text-secondary);
+    line-height: 1.8;
+    font-size: 1.05rem;
+}
+
+.modal-text p {
+    margin-bottom: 20px;
+}
+
+.modal-text h3 {
+    color: var(--accent-alt);
+    margin: 25px 0 15px;
+    font-size: 1.3rem;
+}
+
+.modal-text ul, .modal-text ol {
+    margin: 15px 0 15px 20px;
+    color: var(--text-secondary);
+}
+
+.modal-text li {
+    margin-bottom: 10px;
 }
 
 /* ===== Footer ===== */
@@ -537,6 +585,25 @@ main {
     .footer-content {
         gap: 20px;
     }
+    
+    .modal-header {
+        padding: 20px;
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 15px;
+    }
+    
+    .modal-header h2 {
+        font-size: 1.4rem;
+    }
+    
+    .modal-content {
+        padding: 20px;
+    }
+    
+    .modal-image {
+        height: 200px;
+    }
 }
 
 /* ===== Animation for page load ===== */
@@ -581,6 +648,29 @@ main {
     <!-- Background particles -->
     <div class="particles" id="particles"></div>
     
+    <!-- Blog Modal -->
+    <div class="modal-overlay" id="blogModal">
+        <div class="blog-modal">
+            <div class="modal-header">
+                <h2 id="modalTitle">Blog Title</h2>
+                <button class="close-modal" id="closeModal">
+                    <i class="fas fa-times"></i>
+                </button>
+            </div>
+            <div class="modal-image"></div>
+            <div class="modal-content">
+                <div class="modal-meta">
+                    <span><i class="far fa-calendar"></i> <span id="modalDate">March 15, 2025</span></span>
+                    <span><i class="far fa-clock"></i> <span id="modalReadTime">5 min read</span></span>
+                    <span><i class="fas fa-user-edit"></i> <span id="modalAuthor">Critical Thinkers Team</span></span>
+                </div>
+                <div class="modal-text" id="modalContent">
+                    <!-- Content will be loaded here -->
+                </div>
+            </div>
+        </div>
+    </div>
+    
     <div class="x">
         <div class="header">
             <div class="logo-container">
@@ -589,8 +679,6 @@ main {
                 </div>
                 <h2>Critical Thinkers</h2>
             </div>
-            
-            
             
             <div id="clock" class="clock"></div>
         </div>
@@ -613,7 +701,7 @@ main {
                 <div class="blog-content">
                     <h3 class="blog-title">The Future of Logical Reasoning</h3>
                     <p class="blog-excerpt">Explore how artificial intelligence is transforming traditional logical reasoning and what it means for critical thinkers in the digital age.</p>
-                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    <button class="read-more" data-blog="1">Read More <i class="fas fa-arrow-right"></i></button>
                     <div class="blog-meta">
                         <span><i class="far fa-calendar"></i> March 15, 2025</span>
                         <span><i class="far fa-clock"></i> 5 min read</span>
@@ -627,7 +715,7 @@ main {
                 <div class="blog-content">
                     <h3 class="blog-title">Cognitive Biases in Decision Making</h3>
                     <p class="blog-excerpt">A deep dive into how cognitive biases affect our daily decisions and strategies to mitigate their impact through critical thinking.</p>
-                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    <button class="read-more" data-blog="2">Read More <i class="fas fa-arrow-right"></i></button>
                     <div class="blog-meta">
                         <span><i class="far fa-calendar"></i> March 10, 2025</span>
                         <span><i class="far fa-clock"></i> 8 min read</span>
@@ -641,7 +729,7 @@ main {
                 <div class="blog-content">
                     <h3 class="blog-title">Philosophical Foundations of Critical Thought</h3>
                     <p class="blog-excerpt">Tracing the philosophical roots of critical thinking from Socrates to modern philosophers and their relevance today.</p>
-                    <a href="#" class="read-more">Read More <i class="fas fa-arrow-right"></i></a>
+                    <button class="read-more" data-blog="3">Read More <i class="fas fa-arrow-right"></i></button>
                     <div class="blog-meta">
                         <span><i class="far fa-calendar"></i> March 5, 2025</span>
                         <span><i class="far fa-clock"></i> 12 min read</span>
@@ -669,6 +757,177 @@ main {
     </div>
 
     <script>
+        // Blog content data
+        const blogContent = {
+            1: {
+                title: "The Future of Logical Reasoning",
+                date: "March 15, 2025",
+                readTime: "5 min read",
+                author: "Dr. Sarah Chen",
+                content: `
+                    <p>Artificial intelligence is revolutionizing the way we approach logical reasoning. Traditional methods of deductive and inductive reasoning are being augmented by machine learning algorithms that can process vast amounts of data in seconds.</p>
+                    
+                    <h3>The AI Revolution in Logic</h3>
+                    <p>Recent advancements in AI have demonstrated remarkable capabilities in logical problem-solving. Systems like GPT-4 and specialized reasoning AIs can now solve complex logical puzzles, identify fallacies in arguments, and even generate valid logical proofs.</p>
+                    
+                    <h3>Implications for Critical Thinkers</h3>
+                    <p>This technological shift presents both opportunities and challenges:</p>
+                    <ul>
+                        <li><strong>Enhanced Analytical Tools:</strong> AI can help identify patterns and connections humans might miss</li>
+                        <li><strong>Bias Detection:</strong> Machine learning models can flag cognitive biases in decision-making processes</li>
+                        <li><strong>Automated Verification:</strong> Quick validation of logical arguments and premises</li>
+                        <li><strong>Risk of Over-reliance:</strong> Maintaining human oversight in critical thinking processes</li>
+                    </ul>
+                    
+                    <h3>The Human Element</h3>
+                    <p>Despite these advancements, the human element remains crucial. Critical thinking involves not just logical processing but also ethical considerations, contextual understanding, and creative problem-solving—areas where human judgment still excels.</p>
+                    
+                    <p>As we move forward, the most effective approach will likely be a symbiotic relationship between human critical thinkers and AI tools, leveraging the strengths of both to tackle complex problems more effectively.</p>
+                `
+            },
+            2: {
+                title: "Cognitive Biases in Decision Making",
+                date: "March 10, 2025",
+                readTime: "8 min read",
+                author: "Prof. Michael Rodriguez",
+                content: `
+                    <p>Cognitive biases are systematic patterns of deviation from norm or rationality in judgment. They affect every decision we make, often without our awareness.</p>
+                    
+                    <h3>Common Cognitive Biases</h3>
+                    <p>Understanding these biases is the first step toward mitigating their effects:</p>
+                    
+                    <ul>
+                        <li><strong>Confirmation Bias:</strong> Seeking information that confirms our existing beliefs while ignoring contradictory evidence</li>
+                        <li><strong>Anchoring Bias:</strong> Relying too heavily on the first piece of information encountered</li>
+                        <li><strong>Availability Heuristic:</strong> Overestimating the importance of information that comes to mind quickly</li>
+                        <li><strong>Dunning-Kruger Effect:</strong> Unskilled individuals overestimating their own ability</li>
+                        <li><strong>Sunk Cost Fallacy:</strong> Continuing a behavior because of previously invested resources</li>
+                    </ul>
+                    
+                    <h3>Strategies for Mitigation</h3>
+                    <p>Critical thinkers can employ several strategies to reduce the impact of cognitive biases:</p>
+                    
+                    <ol>
+                        <li><strong>Actively seek disconfirming evidence:</strong> Challenge your own assumptions by looking for information that contradicts your beliefs</li>
+                        <li><strong>Consider alternative explanations:</strong> Force yourself to generate multiple hypotheses for any situation</li>
+                        <li><strong>Delay decision-making:</strong> Allow time for reflection before making important decisions</li>
+                        <li><strong>Use decision-making frameworks:</strong> Implement structured approaches like premortems or red teaming</li>
+                        <li><strong>Seek diverse perspectives:</strong> Consult with people who have different backgrounds and viewpoints</li>
+                    </ol>
+                    
+                    <h3>Organizational Applications</h3>
+                    <p>In organizational settings, awareness of cognitive biases can lead to better decision-making processes. Techniques like pre-mortem analysis, devil's advocacy, and structured dissent can help teams overcome collective biases.</p>
+                    
+                    <p>By recognizing and addressing cognitive biases, critical thinkers can make more rational, evidence-based decisions in both personal and professional contexts.</p>
+                `
+            },
+            3: {
+                title: "Philosophical Foundations of Critical Thought",
+                date: "March 5, 2025",
+                readTime: "12 min read",
+                author: "Dr. Eleanor Vance",
+                content: `
+                    <p>The practice of critical thinking has deep roots in Western philosophy, tracing back to ancient Greek thinkers who established foundational principles of logic, rhetoric, and epistemology.</p>
+                    
+                    <h3>Socratic Method: The Birth of Critical Inquiry</h3>
+                    <p>Socrates (470-399 BCE) pioneered the dialectical method of questioning assumptions and examining beliefs. His approach, immortalized in Plato's dialogues, emphasized:</p>
+                    <ul>
+                        <li>Systematic questioning of definitions and assumptions</li>
+                        <li>Recognition of one's own ignorance</li>
+                        <li>The pursuit of truth through dialogue</li>
+                        <li>Examination of ethical implications</li>
+                    </ul>
+                    
+                    <h3>Aristotelian Logic</h3>
+                    <p>Aristotle (384-322 BCE) formalized the principles of logic with his syllogistic reasoning. His contributions include:</p>
+                    <ul>
+                        <li>The Organon: A collection of works on logic and reasoning</li>
+                        <li>Categorical syllogisms as a method of deductive reasoning</li>
+                        <li>Distinction between valid and sound arguments</li>
+                        <li>Analysis of fallacies in reasoning</li>
+                    </ul>
+                    
+                    <h3>Modern Developments</h3>
+                    <p>The Enlightenment brought renewed emphasis on critical thinking:</p>
+                    
+                    <h4>René Descartes (1596-1650)</h4>
+                    <p>Methodological skepticism and the famous dictum "Cogito, ergo sum" (I think, therefore I am) established the importance of doubting assumptions as a path to certainty.</p>
+                    
+                    <h4>John Locke (1632-1704)</h4>
+                    <p>Empiricism emphasized experience as the source of knowledge, encouraging examination of evidence rather than reliance on tradition or authority.</p>
+                    
+                    <h4>Immanuel Kant (1724-1804)</h4>
+                    <p>Critique of Pure Reason explored the limits and conditions of human knowledge, distinguishing between analytical and synthetic judgments.</p>
+                    
+                    <h3>Contemporary Relevance</h3>
+                    <p>These philosophical foundations remain essential for modern critical thinking. They provide:</p>
+                    <ul>
+                        <li>Tools for analyzing arguments and evidence</li>
+                        <li>Frameworks for ethical decision-making</li>
+                        <li>Methods for questioning assumptions and biases</li>
+                        <li>Standards for evaluating the validity of claims</li>
+                    </ul>
+                    
+                    <p>By understanding these philosophical roots, today's critical thinkers can build upon centuries of intellectual tradition while addressing contemporary challenges with rigor and depth.</p>
+                `
+            }
+        };
+
+        // DOM Elements
+        const modal = document.getElementById('blogModal');
+        const modalTitle = document.getElementById('modalTitle');
+        const modalDate = document.getElementById('modalDate');
+        const modalReadTime = document.getElementById('modalReadTime');
+        const modalAuthor = document.getElementById('modalAuthor');
+        const modalContent = document.getElementById('modalContent');
+        const closeModalBtn = document.getElementById('closeModal');
+        const readMoreBtns = document.querySelectorAll('.read-more');
+
+        // Open modal function
+        function openModal(blogId) {
+            const blog = blogContent[blogId];
+            if (!blog) return;
+            
+            modalTitle.textContent = blog.title;
+            modalDate.textContent = blog.date;
+            modalReadTime.textContent = blog.readTime;
+            modalAuthor.textContent = blog.author;
+            modalContent.innerHTML = blog.content;
+            
+            modal.classList.add('active');
+            document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+        }
+
+        // Close modal function
+        function closeModal() {
+            modal.classList.remove('active');
+            document.body.style.overflow = 'auto'; // Re-enable scrolling
+        }
+
+        // Event Listeners
+        readMoreBtns.forEach(btn => {
+            btn.addEventListener('click', function() {
+                const blogId = this.getAttribute('data-blog');
+                openModal(blogId);
+            });
+        });
+
+        closeModalBtn.addEventListener('click', closeModal);
+
+        // Close modal when clicking outside content
+        modal.addEventListener('click', function(e) {
+            if (e.target === modal) {
+                closeModal();
+            }
+        });
+
+        // Close modal with Escape key
+        document.addEventListener('keydown', function(e) {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                closeModal();
+            }
+        });
+
         // Clock Functionality
         function updateClock() {
             const now = new Date();
@@ -714,15 +973,6 @@ main {
         // Initialize particles on page load
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
-            
-            // Add hover effect to menu icon
-            const menuIcon = document.querySelector('.menu-icon a');
-            menuIcon.addEventListener('mouseenter', function() {
-                this.style.transform = 'rotate(90deg)';
-            });
-            menuIcon.addEventListener('mouseleave', function() {
-                this.style.transform = 'rotate(0deg)';
-            });
             
             // Add animation delay to blog cards
             const blogCards = document.querySelectorAll('.blog-card');
