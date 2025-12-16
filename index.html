@@ -274,12 +274,25 @@ main {
     border-color: var(--secondary);
 }
 
+/* FIXED: Blog image styling */
 .blog-image {
     height: 200px;
     width: 100%;
-    background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(0, 170, 255, 0.2));
-    position: relative;
     overflow: hidden;
+    position: relative;
+    background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(0, 170, 255, 0.2));
+}
+
+.blog-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+    transition: var(--transition);
+}
+
+.blog-card:hover .blog-image img {
+    transform: scale(1.05);
 }
 
 .blog-image::after {
@@ -341,6 +354,7 @@ main {
     align-self: flex-start;
     margin-top: 15px;
     cursor: pointer;
+    font-family: inherit;
 }
 
 .read-more:hover {
@@ -431,12 +445,29 @@ main {
     background: rgba(255, 255, 255, 0.2);
 }
 
+/* FIXED: Modal image styling */
 .modal-image {
     height: 300px;
     width: 100%;
-    background: linear-gradient(135deg, rgba(0, 217, 255, 0.3), rgba(0, 170, 255, 0.3));
-    position: relative;
     overflow: hidden;
+    position: relative;
+}
+
+.modal-image img {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+    object-position: center;
+}
+
+.modal-image::after {
+    content: '';
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 50%;
+    background: linear-gradient(to top, rgba(15, 15, 35, 0.8), transparent);
 }
 
 .modal-content {
@@ -604,6 +635,11 @@ main {
     .modal-image {
         height: 200px;
     }
+    
+    .modal-meta {
+        flex-direction: column;
+        gap: 10px;
+    }
 }
 
 /* ===== Animation for page load ===== */
@@ -657,7 +693,7 @@ main {
                     <i class="fas fa-times"></i>
                 </button>
             </div>
-            <div class="modal-image"></div>
+            <div class="modal-image" id="modalImage"></div>
             <div class="modal-content">
                 <div class="modal-meta">
                     <span><i class="far fa-calendar"></i> <span id="modalDate">March 15, 2025</span></span>
@@ -697,7 +733,9 @@ main {
         <div class="blog-container">
             <!-- Blog Card 1 -->
             <div class="blog-card fade-in">
-                <div class="blog-image">  <img src="lgr.jpeg" alt="The Future of Logical Reasoning"> </div> 
+                <div class="blog-image">
+                    <img src="lgr.jpeg" alt="The Future of Logical Reasoning">
+                </div>
                 <div class="blog-content">
                     <h3 class="blog-title">The Future of Logical Reasoning</h3>
                     <p class="blog-excerpt">Explore how artificial intelligence is transforming traditional logical reasoning and what it means for critical thinkers in the digital age.</p>
@@ -711,7 +749,9 @@ main {
             
             <!-- Blog Card 2 -->
             <div class="blog-card fade-in">
-                <div class="blog-image"><img src="bias.jpg" alt="Cognitive Biases in Decision Making"></div>
+                <div class="blog-image">
+                    <img src="bias.jpg" alt="Cognitive Biases in Decision Making">
+                </div>
                 <div class="blog-content">
                     <h3 class="blog-title">Cognitive Biases in Decision Making</h3>
                     <p class="blog-excerpt">A deep dive into how cognitive biases affect our daily decisions and strategies to mitigate their impact through critical thinking.</p>
@@ -725,7 +765,9 @@ main {
             
             <!-- Blog Card 3 -->
             <div class="blog-card fade-in">
-                <div class="blog-image">     <img src="ct.webp" alt="Philosophical Foundations of Critical Thought"></div>
+                <div class="blog-image">
+                    <img src="ct.webp" alt="Philosophical Foundations of Critical Thought">
+                </div>
                 <div class="blog-content">
                     <h3 class="blog-title">Philosophical Foundations of Critical Thought</h3>
                     <p class="blog-excerpt">Tracing the philosophical roots of critical thinking from Socrates to modern philosophers and their relevance today.</p>
@@ -757,13 +799,14 @@ main {
     </div>
 
     <script>
-        // Blog content data
+        // Blog content data with image references
         const blogContent = {
             1: {
                 title: "The Future of Logical Reasoning",
                 date: "March 15, 2025",
                 readTime: "5 min read",
                 author: "Dr. Sarah Chen",
+                image: "lgr.jpeg",
                 content: `
                     <p>Artificial intelligence is revolutionizing the way we approach logical reasoning. Traditional methods of deductive and inductive reasoning are being augmented by machine learning algorithms that can process vast amounts of data in seconds.</p>
                     
@@ -790,6 +833,7 @@ main {
                 date: "March 10, 2025",
                 readTime: "8 min read",
                 author: "Prof. Michael Rodriguez",
+                image: "bias.jpg",
                 content: `
                     <p>Cognitive biases are systematic patterns of deviation from norm or rationality in judgment. They affect every decision we make, often without our awareness.</p>
                     
@@ -826,6 +870,7 @@ main {
                 date: "March 5, 2025",
                 readTime: "12 min read",
                 author: "Dr. Eleanor Vance",
+                image: "ct.webp",
                 content: `
                     <p>The practice of critical thinking has deep roots in Western philosophy, tracing back to ancient Greek thinkers who established foundational principles of logic, rhetoric, and epistemology.</p>
                     
@@ -879,6 +924,7 @@ main {
         const modalDate = document.getElementById('modalDate');
         const modalReadTime = document.getElementById('modalReadTime');
         const modalAuthor = document.getElementById('modalAuthor');
+        const modalImage = document.getElementById('modalImage');
         const modalContent = document.getElementById('modalContent');
         const closeModalBtn = document.getElementById('closeModal');
         const readMoreBtns = document.querySelectorAll('.read-more');
@@ -892,16 +938,22 @@ main {
             modalDate.textContent = blog.date;
             modalReadTime.textContent = blog.readTime;
             modalAuthor.textContent = blog.author;
+            
+            // Set modal image
+            modalImage.innerHTML = `<img src="${blog.image}" alt="${blog.title}">`;
+            
+            // Set modal content
             modalContent.innerHTML = blog.content;
             
+            // Show modal
             modal.classList.add('active');
-            document.body.style.overflow = 'hidden'; // Prevent scrolling behind modal
+            document.body.style.overflow = 'hidden';
         }
 
         // Close modal function
         function closeModal() {
             modal.classList.remove('active');
-            document.body.style.overflow = 'auto'; // Re-enable scrolling
+            document.body.style.overflow = 'auto';
         }
 
         // Event Listeners
@@ -970,7 +1022,7 @@ main {
             }
         }
 
-        // Initialize particles on page load
+        // Initialize on page load
         document.addEventListener('DOMContentLoaded', function() {
             createParticles();
             
