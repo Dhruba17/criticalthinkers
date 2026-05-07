@@ -3,192 +3,1475 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Simple Post Platform</title>
+  <title>Critical Thinkers | Discussion Forum</title>
+  <link rel="icon" href="ct.svg" type="image/svg">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" rel="stylesheet">
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@400;500;600;700;800;900&family=Inter:wght@300;400;500;600;700&family=JetBrains+Mono:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
+    :root {
+      --primary: #0a0a1a;
+      --primary-light: #12122a;
+      --secondary: #00d9ff;
+      --accent: #00ffaa;
+      --accent-alt: #ff6b6b;
+      --accent-warm: #ffd166;
+      --text: #e8e8f0;
+      --text-secondary: #8892b0;
+      --text-muted: #5a6a8a;
+      --card-bg: rgba(18, 18, 42, 0.7);
+      --card-bg-hover: rgba(25, 25, 55, 0.85);
+      --card-border: rgba(0, 217, 255, 0.15);
+      --card-border-hover: rgba(0, 217, 255, 0.4);
+      --glow: 0 0 20px rgba(0, 217, 255, 0.3);
+      --glow-accent: 0 0 20px rgba(0, 255, 170, 0.3);
+      --glow-warm: 0 0 20px rgba(255, 209, 102, 0.3);
+      --transition: all 0.3s cubic-bezier(0.25, 0.46, 0.45, 0.94);
+      --shadow-lg: 0 10px 40px rgba(0, 0, 0, 0.4);
+      --shadow-xl: 0 20px 60px rgba(0, 0, 0, 0.5);
+    }
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+    }
+
     body {
-      font-family: Arial, sans-serif;
-      background-color: #f4f4f4;
-      padding: 20px;
+      font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+      background-color: var(--primary);
+      color: var(--text);
+      min-height: 100vh;
+      overflow-x: hidden;
+      line-height: 1.6;
     }
-    .container {
-      max-width: 600px;
-      margin: 0 auto;
-      background-color: #fff;
-      padding: 20px;
-      border-radius: 10px;
-      box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    }
-    .post-box, .name-box {
-      margin-bottom: 20px;
-    }
-    .post-box textarea, .name-box input {
+
+    /* ===== Animated Background ===== */
+    .bg-canvas {
+      position: fixed;
+      top: 0;
+      left: 0;
       width: 100%;
-      padding: 10px;
-      border-radius: 5px;
-      border: 1px solid #ccc;
+      height: 100%;
+      z-index: 0;
+      pointer-events: none;
     }
-    .post-box textarea {
-      height: 100px;
-      resize: none;
+
+    .bg-grid {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-image:
+        linear-gradient(90deg, rgba(0, 217, 255, 0.03) 1px, transparent 1px),
+        linear-gradient(rgba(0, 217, 255, 0.03) 1px, transparent 1px);
+      background-size: 60px 60px;
+      z-index: 0;
+      pointer-events: none;
     }
-    .name-box input {
-      height: 40px;
+
+    .bg-orb {
+      position: fixed;
+      border-radius: 50%;
+      filter: blur(80px);
+      opacity: 0.15;
+      pointer-events: none;
+      z-index: 0;
+      animation: orbFloat 20s ease-in-out infinite;
     }
-    .post-button {
-      background-color: #4CAF50;
-      color: white;
+
+    .bg-orb-1 {
+      width: 400px;
+      height: 400px;
+      background: var(--secondary);
+      top: -10%;
+      left: -5%;
+      animation-delay: 0s;
+    }
+
+    .bg-orb-2 {
+      width: 300px;
+      height: 300px;
+      background: var(--accent);
+      bottom: -10%;
+      right: -5%;
+      animation-delay: -7s;
+    }
+
+    .bg-orb-3 {
+      width: 250px;
+      height: 250px;
+      background: var(--accent-warm);
+      top: 50%;
+      left: 50%;
+      animation-delay: -14s;
+    }
+
+    @keyframes orbFloat {
+      0%, 100% { transform: translate(0, 0) scale(1); }
+      25% { transform: translate(30px, -30px) scale(1.1); }
+      50% { transform: translate(-20px, 20px) scale(0.95); }
+      75% { transform: translate(20px, 30px) scale(1.05); }
+    }
+
+    /* ===== Header ===== */
+    .header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding: 16px 5%;
+      background: rgba(10, 10, 26, 0.8);
+      backdrop-filter: blur(20px);
+      border-bottom: 1px solid var(--card-border);
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+
+    .logo-area {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+
+    .logo-area img {
+      width: 42px;
+      height: 42px;
+      filter: drop-shadow(0 0 10px rgba(0, 217, 255, 0.5));
+      transition: var(--transition);
+    }
+
+    .logo-area img:hover {
+      transform: rotate(15deg) scale(1.1);
+      filter: drop-shadow(0 0 15px rgba(0, 255, 170, 0.6));
+    }
+
+    .logo-area h1 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.3rem;
+      font-weight: 700;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      -webkit-background-clip: text;
+      background-clip: text;
+      color: transparent;
+      letter-spacing: 1px;
+    }
+
+    .header-actions {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .header-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
       padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
+      border-radius: 12px;
+      border: 1px solid var(--card-border);
+      background: rgba(0, 217, 255, 0.08);
+      color: var(--secondary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 500;
       cursor: pointer;
-      font-size: 16px;
+      transition: var(--transition);
+      text-decoration: none;
     }
-    .post-button:hover {
-      background-color: #45a049;
+
+    .header-btn:hover {
+      background: rgba(0, 217, 255, 0.15);
+      border-color: var(--secondary);
+      box-shadow: var(--glow);
+      transform: translateY(-2px);
     }
-    .back-button {
-      background-color: #ccc;
-      color: white;
-      padding: 10px 20px;
-      border: none;
-      border-radius: 5px;
+
+    .header-btn i {
+      font-size: 0.85rem;
+    }
+
+    /* ===== Main Layout ===== */
+    .main-wrapper {
+      display: grid;
+      grid-template-columns: 280px 1fr 320px;
+      gap: 24px;
+      max-width: 1600px;
+      margin: 0 auto;
+      padding: 24px 5%;
+      position: relative;
+      z-index: 1;
+    }
+
+    /* ===== Sidebar ===== */
+    .sidebar {
+      position: sticky;
+      top: 90px;
+      height: fit-content;
+    }
+
+    .sidebar-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(15px);
+      margin-bottom: 16px;
+      transition: var(--transition);
+    }
+
+    .sidebar-card:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: var(--shadow-lg);
+    }
+
+    .sidebar-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 600;
+      color: var(--text-secondary);
+      text-transform: uppercase;
+      letter-spacing: 2px;
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 8px;
+    }
+
+    .sidebar-title i {
+      color: var(--secondary);
+      font-size: 0.9rem;
+    }
+
+    .nav-item {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 12px 14px;
+      border-radius: 12px;
+      color: var(--text-secondary);
+      text-decoration: none;
+      font-size: 0.95rem;
+      font-weight: 500;
+      transition: var(--transition);
+      margin-bottom: 4px;
       cursor: pointer;
-      font-size: 16px;
+      border: none;
+      background: none;
+      width: 100%;
+      text-align: left;
+      font-family: 'Inter', sans-serif;
+    }
+
+    .nav-item:hover {
+      background: rgba(0, 217, 255, 0.08);
+      color: var(--text);
+    }
+
+    .nav-item.active {
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.15), rgba(0, 255, 170, 0.1));
+      color: var(--secondary);
+      border: 1px solid rgba(0, 217, 255, 0.3);
+    }
+
+    .nav-item i {
+      width: 20px;
+      text-align: center;
+      font-size: 1rem;
+    }
+
+    .nav-badge {
+      margin-left: auto;
+      background: rgba(255, 107, 107, 0.2);
+      color: var(--accent-alt);
+      font-size: 0.7rem;
+      font-weight: 600;
+      padding: 3px 8px;
+      border-radius: 20px;
+      font-family: 'JetBrains Mono', monospace;
+    }
+
+    .trending-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      background: rgba(0, 217, 255, 0.08);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      color: var(--text-secondary);
+      font-size: 0.85rem;
+      margin: 4px;
+      cursor: pointer;
+      transition: var(--transition);
+      text-decoration: none;
+    }
+
+    .trending-tag:hover {
+      background: rgba(0, 217, 255, 0.15);
+      border-color: var(--secondary);
+      color: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .trending-tag .tag-count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== Center Content ===== */
+    .center-content {
+      min-width: 0;
+    }
+
+    /* Post Composer */
+    .composer {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(15px);
+      margin-bottom: 24px;
+      transition: var(--transition);
+    }
+
+    .composer:focus-within {
+      border-color: var(--card-border-hover);
+      box-shadow: var(--glow);
+    }
+
+    .composer-header {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+      margin-bottom: 16px;
+    }
+
+    .composer-avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      font-weight: 700;
+      color: var(--primary);
+      flex-shrink: 0;
+    }
+
+    .composer-input-group {
+      flex: 1;
+    }
+
+    .composer-name {
+      width: 100%;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      border-radius: 12px;
+      padding: 10px 16px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+      margin-bottom: 10px;
+    }
+
+    .composer-name:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 10px rgba(0, 217, 255, 0.2);
+    }
+
+    .composer-name::placeholder {
+      color: var(--text-muted);
+    }
+
+    .composer-textarea {
+      width: 100%;
+      min-height: 100px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      border-radius: 16px;
+      padding: 16px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 1rem;
+      line-height: 1.7;
+      outline: none;
+      resize: vertical;
+      transition: var(--transition);
+    }
+
+    .composer-textarea:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 15px rgba(0, 217, 255, 0.15);
+    }
+
+    .composer-textarea::placeholder {
+      color: var(--text-muted);
+    }
+
+    .composer-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      margin-top: 14px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0, 217, 255, 0.08);
+    }
+
+    .composer-tools {
+      display: flex;
+      gap: 8px;
+    }
+
+    .tool-btn {
+      width: 38px;
+      height: 38px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: rgba(0, 217, 255, 0.05);
+      color: var(--text-secondary);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      transition: var(--transition);
+      font-size: 0.9rem;
+    }
+
+    .tool-btn:hover {
+      background: rgba(0, 217, 255, 0.15);
+      color: var(--secondary);
+      border-color: var(--secondary);
+      transform: translateY(-2px);
+    }
+
+    .post-btn {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      padding: 12px 28px;
+      background: linear-gradient(135deg, var(--secondary), var(--accent));
+      border: none;
+      border-radius: 12px;
+      color: var(--primary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      font-weight: 600;
+      cursor: pointer;
+      transition: var(--transition);
+      position: relative;
+      overflow: hidden;
+    }
+
+    .post-btn::before {
+      content: '';
+      position: absolute;
+      top: 0;
+      left: -100%;
+      width: 100%;
+      height: 100%;
+      background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+      transition: left 0.5s ease;
+    }
+
+    .post-btn:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 8px 25px rgba(0, 217, 255, 0.4);
+    }
+
+    .post-btn:hover::before {
+      left: 100%;
+    }
+
+    .post-btn:disabled {
+      opacity: 0.5;
+      cursor: not-allowed;
+      transform: none;
+    }
+
+    .post-btn i {
+      font-size: 0.85rem;
+    }
+
+    /* Character Counter */
+    .char-counter {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      margin-right: 12px;
+    }
+
+    .char-counter.warning {
+      color: var(--accent-warm);
+    }
+
+    .char-counter.danger {
+      color: var(--accent-alt);
+    }
+
+    /* ===== Feed Filter ===== */
+    .feed-header {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
       margin-bottom: 20px;
     }
-    .back-button:hover {
-      background-color: #b3b3b3;
+
+    .feed-title {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--text);
+      display: flex;
+      align-items: center;
+      gap: 10px;
     }
-    .post {
-      margin-top: 20px;
-      background-color: #f1f1f1;
-      padding: 15px;
+
+    .feed-title i {
+      color: var(--secondary);
+    }
+
+    .feed-filter {
+      display: flex;
+      gap: 8px;
+    }
+
+    .filter-btn {
+      padding: 8px 16px;
+      border-radius: 10px;
+      border: 1px solid var(--card-border);
+      background: rgba(0, 217, 255, 0.05);
+      color: var(--text-secondary);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .filter-btn:hover {
+      background: rgba(0, 217, 255, 0.1);
+      color: var(--text);
+    }
+
+    .filter-btn.active {
+      background: linear-gradient(135deg, rgba(0, 217, 255, 0.2), rgba(0, 255, 170, 0.15));
+      color: var(--secondary);
+      border-color: rgba(0, 217, 255, 0.4);
+    }
+
+    /* ===== Post Cards ===== */
+    .post-card {
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 20px;
+      padding: 24px;
+      backdrop-filter: blur(15px);
+      margin-bottom: 16px;
+      transition: var(--transition);
+      animation: slideUp 0.5s ease forwards;
+      opacity: 0;
+    }
+
+    .post-card:hover {
+      border-color: var(--card-border-hover);
+      box-shadow: var(--shadow-lg);
+      transform: translateY(-3px);
+    }
+
+    .post-card.pinned {
+      border-color: rgba(255, 209, 102, 0.3);
+      background: linear-gradient(135deg, rgba(255, 209, 102, 0.05), var(--card-bg));
+    }
+
+    .post-card.pinned:hover {
+      border-color: rgba(255, 209, 102, 0.5);
+      box-shadow: var(--glow-warm);
+    }
+
+    @keyframes slideUp {
+      from {
+        opacity: 0;
+        transform: translateY(20px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    .post-header {
+      display: flex;
+      align-items: flex-start;
+      justify-content: space-between;
+      margin-bottom: 14px;
+    }
+
+    .post-author-info {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+    }
+
+    .post-avatar {
+      width: 44px;
+      height: 44px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.1rem;
+      font-weight: 700;
+      color: var(--primary);
+      flex-shrink: 0;
+      position: relative;
+    }
+
+    .post-avatar::after {
+      content: '';
+      position: absolute;
+      inset: -3px;
+      border-radius: 50%;
+      border: 2px solid transparent;
+      background: linear-gradient(135deg, var(--secondary), var(--accent)) border-box;
+      -webkit-mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      mask: linear-gradient(#fff 0 0) padding-box, linear-gradient(#fff 0 0);
+      -webkit-mask-composite: xor;
+      mask-composite: exclude;
+    }
+
+    .post-meta {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .post-author-name {
+      font-weight: 600;
+      color: var(--text);
+      font-size: 0.95rem;
+    }
+
+    .post-time {
+      font-size: 0.8rem;
+      color: var(--text-muted);
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      margin-top: 2px;
+    }
+
+    .post-time i {
+      font-size: 0.7rem;
+    }
+
+    .post-actions-menu {
+      position: relative;
+    }
+
+    .menu-btn {
+      width: 32px;
+      height: 32px;
       border-radius: 8px;
-      box-shadow: 0 0 5px rgba(0, 0, 0, 0.1);
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      cursor: pointer;
+      transition: var(--transition);
+      display: flex;
+      align-items: center;
+      justify-content: center;
     }
-    .post .content {
+
+    .menu-btn:hover {
+      background: rgba(0, 217, 255, 0.1);
+      color: var(--secondary);
+    }
+
+    .post-content {
+      color: var(--text);
+      font-size: 0.95rem;
+      line-height: 1.7;
+      margin-bottom: 16px;
+      word-wrap: break-word;
+    }
+
+    .post-content a {
+      color: var(--secondary);
+      text-decoration: none;
+      border-bottom: 1px dotted var(--secondary);
+    }
+
+    .post-content a:hover {
+      color: var(--accent);
+      border-bottom-color: var(--accent);
+    }
+
+    .post-tags {
+      display: flex;
+      flex-wrap: wrap;
+      gap: 8px;
+      margin-bottom: 16px;
+    }
+
+    .post-tag {
+      padding: 4px 12px;
+      background: rgba(0, 217, 255, 0.08);
+      border: 1px solid rgba(0, 217, 255, 0.2);
+      border-radius: 20px;
+      color: var(--secondary);
+      font-size: 0.8rem;
+      font-weight: 500;
+    }
+
+    .post-footer {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      padding-top: 14px;
+      border-top: 1px solid rgba(0, 217, 255, 0.08);
+    }
+
+    .post-action {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      padding: 8px 14px;
+      border-radius: 10px;
+      border: none;
+      background: transparent;
+      color: var(--text-muted);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 500;
+      cursor: pointer;
+      transition: var(--transition);
+    }
+
+    .post-action:hover {
+      background: rgba(0, 217, 255, 0.08);
+      color: var(--secondary);
+    }
+
+    .post-action.liked {
+      color: var(--accent-alt);
+      background: rgba(255, 107, 107, 0.1);
+    }
+
+    .post-action.liked:hover {
+      background: rgba(255, 107, 107, 0.15);
+    }
+
+    .post-action i {
+      font-size: 0.9rem;
+    }
+
+    .post-action .count {
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.8rem;
+    }
+
+    /* ===== Right Sidebar ===== */
+    .right-sidebar {
+      position: sticky;
+      top: 90px;
+      height: fit-content;
+    }
+
+    .stats-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 12px;
+    }
+
+    .stat-card {
+      background: rgba(0, 0, 0, 0.2);
+      border-radius: 14px;
+      padding: 16px;
+      text-align: center;
+      transition: var(--transition);
+    }
+
+    .stat-card:hover {
+      background: rgba(0, 217, 255, 0.08);
+      transform: translateY(-2px);
+    }
+
+    .stat-number {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.6rem;
+      font-weight: 700;
+      color: var(--secondary);
+      margin-bottom: 4px;
+    }
+
+    .stat-label {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+      text-transform: uppercase;
+      letter-spacing: 1px;
+    }
+
+    .online-users {
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .online-user {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      padding: 8px;
+      border-radius: 10px;
+      transition: var(--transition);
+    }
+
+    .online-user:hover {
+      background: rgba(0, 217, 255, 0.05);
+    }
+
+    .online-avatar {
+      width: 36px;
+      height: 36px;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-family: 'Orbitron', sans-serif;
+      font-size: 0.85rem;
+      font-weight: 700;
+      color: var(--primary);
+      position: relative;
+    }
+
+    .online-indicator {
+      position: absolute;
+      bottom: 0;
+      right: 0;
+      width: 10px;
+      height: 10px;
+      background: var(--accent);
+      border: 2px solid var(--card-bg);
+      border-radius: 50%;
+    }
+
+    .online-name {
+      font-size: 0.9rem;
+      font-weight: 500;
+      color: var(--text);
+    }
+
+    .online-status {
+      font-size: 0.75rem;
+      color: var(--text-muted);
+    }
+
+    /* ===== Toast Notifications ===== */
+    .toast-container {
+      position: fixed;
+      bottom: 24px;
+      right: 24px;
+      z-index: 1000;
+      display: flex;
+      flex-direction: column;
+      gap: 10px;
+    }
+
+    .toast {
+      display: flex;
+      align-items: center;
+      gap: 12px;
+      padding: 16px 20px;
+      background: var(--card-bg);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      backdrop-filter: blur(20px);
+      box-shadow: var(--shadow-xl);
+      transform: translateX(120%);
+      animation: toastSlideIn 0.4s ease forwards, toastSlideOut 0.4s ease 3s forwards;
+      max-width: 400px;
+    }
+
+    .toast.success {
+      border-color: rgba(0, 255, 170, 0.3);
+    }
+
+    .toast.error {
+      border-color: rgba(255, 107, 107, 0.3);
+    }
+
+    .toast.info {
+      border-color: rgba(0, 217, 255, 0.3);
+    }
+
+    @keyframes toastSlideIn {
+      to { transform: translateX(0); }
+    }
+
+    @keyframes toastSlideOut {
+      to {
+        transform: translateX(120%);
+        opacity: 0;
+      }
+    }
+
+    .toast-icon {
+      width: 36px;
+      height: 36px;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      font-size: 1rem;
+      flex-shrink: 0;
+    }
+
+    .toast.success .toast-icon {
+      background: rgba(0, 255, 170, 0.15);
+      color: var(--accent);
+    }
+
+    .toast.error .toast-icon {
+      background: rgba(255, 107, 107, 0.15);
+      color: var(--accent-alt);
+    }
+
+    .toast.info .toast-icon {
+      background: rgba(0, 217, 255, 0.15);
+      color: var(--secondary);
+    }
+
+    .toast-content {
+      flex: 1;
+    }
+
+    .toast-title {
+      font-weight: 600;
+      font-size: 0.9rem;
+      color: var(--text);
+      margin-bottom: 2px;
+    }
+
+    .toast-message {
+      font-size: 0.85rem;
+      color: var(--text-secondary);
+    }
+
+    /* ===== Empty State ===== */
+    .empty-state {
+      text-align: center;
+      padding: 60px 20px;
+      color: var(--text-muted);
+    }
+
+    .empty-state i {
+      font-size: 3rem;
+      margin-bottom: 16px;
+      color: var(--card-border);
+    }
+
+    .empty-state h3 {
+      font-family: 'Orbitron', sans-serif;
+      font-size: 1.2rem;
+      color: var(--text-secondary);
+      margin-bottom: 8px;
+    }
+
+    .empty-state p {
+      font-size: 0.9rem;
+    }
+
+    /* ===== Scrollbar ===== */
+    ::-webkit-scrollbar {
+      width: 8px;
+    }
+
+    ::-webkit-scrollbar-track {
+      background: var(--primary);
+    }
+
+    ::-webkit-scrollbar-thumb {
+      background: var(--card-border);
+      border-radius: 4px;
+    }
+
+    ::-webkit-scrollbar-thumb:hover {
+      background: var(--secondary);
+    }
+
+    /* ===== Responsive ===== */
+    @media (max-width: 1200px) {
+      .main-wrapper {
+        grid-template-columns: 1fr;
+      }
+
+      .sidebar, .right-sidebar {
+        display: none;
+      }
+    }
+
+    @media (max-width: 768px) {
+      .header {
+        padding: 12px 4%;
+      }
+
+      .logo-area h1 {
+        display: none;
+      }
+
+      .main-wrapper {
+        padding: 16px 4%;
+      }
+
+      .composer {
+        padding: 16px;
+      }
+
+      .post-card {
+        padding: 16px;
+      }
+
+      .post-footer {
+        flex-wrap: wrap;
+      }
+    }
+
+    /* ===== Loading Skeleton ===== */
+    .skeleton {
+      background: linear-gradient(90deg, rgba(0,217,255,0.05) 25%, rgba(0,217,255,0.1) 50%, rgba(0,217,255,0.05) 75%);
+      background-size: 200% 100%;
+      animation: skeletonShimmer 1.5s infinite;
+      border-radius: 8px;
+    }
+
+    @keyframes skeletonShimmer {
+      0% { background-position: 200% 0; }
+      100% { background-position: -200% 0; }
+    }
+
+    /* ===== Math/Code Block Styling ===== */
+    .math-block {
+      background: rgba(0, 0, 0, 0.4);
+      border: 1px solid rgba(0, 217, 255, 0.15);
+      border-radius: 12px;
+      padding: 16px;
+      margin: 12px 0;
+      font-family: 'JetBrains Mono', monospace;
+      font-size: 0.9rem;
+      color: var(--accent);
+      overflow-x: auto;
+    }
+
+    /* ===== Pinned Badge ===== */
+    .pinned-badge {
+      display: inline-flex;
+      align-items: center;
+      gap: 4px;
+      padding: 4px 10px;
+      background: rgba(255, 209, 102, 0.15);
+      border: 1px solid rgba(255, 209, 102, 0.3);
+      border-radius: 20px;
+      color: var(--accent-warm);
+      font-size: 0.75rem;
+      font-weight: 600;
       margin-bottom: 10px;
-      font-size: 16px;
     }
-    .post .author {
-      font-weight: bold;
-      margin-bottom: 5px;
+
+    /* ===== Search Bar ===== */
+    .search-bar {
+      position: relative;
+      margin-bottom: 20px;
+    }
+
+    .search-input {
+      width: 100%;
+      padding: 12px 16px 12px 44px;
+      background: rgba(0, 0, 0, 0.3);
+      border: 1px solid var(--card-border);
+      border-radius: 14px;
+      color: var(--text);
+      font-family: 'Inter', sans-serif;
+      font-size: 0.95rem;
+      outline: none;
+      transition: var(--transition);
+    }
+
+    .search-input:focus {
+      border-color: var(--secondary);
+      box-shadow: 0 0 15px rgba(0, 217, 255, 0.15);
+    }
+
+    .search-input::placeholder {
+      color: var(--text-muted);
+    }
+
+    .search-icon {
+      position: absolute;
+      left: 16px;
+      top: 50%;
+      transform: translateY(-50%);
+      color: var(--text-muted);
+      font-size: 0.9rem;
     }
   </style>
 </head>
 <body>
+  <!-- Background Effects -->
+  <div class="bg-grid"></div>
+  <div class="bg-orb bg-orb-1"></div>
+  <div class="bg-orb bg-orb-2"></div>
+  <div class="bg-orb bg-orb-3"></div>
 
-  <div class="container">
-    <h2>Create Your Account and Post</h2>
-    
-    <!-- Back Button -->
-    <button class="back-button" onclick="goBack()">Back</button>
+  <!-- Toast Container -->
+  <div class="toast-container" id="toastContainer"></div>
 
-    <!-- Name Input Box -->
-    <div class="name-box">
-      <input type="text" id="userName" placeholder="Enter your name" />
+  <!-- Header -->
+  <header class="header">
+    <div class="logo-area">
+      <img src="ct.svg" alt="Critical Thinkers">
+      <h1>Critical Thinkers</h1>
     </div>
-    
-    <!-- Post Input Box -->
-    <div class="post-box">
-      <textarea id="postText" placeholder="Write something..."></textarea>
+    <div class="header-actions">
+      <a href="index.html" class="header-btn">
+        <i class="fas fa-home"></i> Home
+      </a>
+      <a href="Resources.html" class="header-btn">
+        <i class="fas fa-book"></i> Resources
+      </a>
+      <a href="Magazine.html" class="header-btn">
+        <i class="fas fa-newspaper"></i> Magazine
+      </a>
+      <a href="Team.html" class="header-btn">
+        <i class="fas fa-users"></i> Team
+      </a>
     </div>
+  </header>
 
-    <!-- Post Button -->
-    <button class="post-button" onclick="submitPost()">Post</button>
+  <!-- Main Layout -->
+  <div class="main-wrapper">
+    <!-- Left Sidebar -->
+    <aside class="sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">
+          <i class="fas fa-compass"></i> Navigation
+        </div>
+        <button class="nav-item active" onclick="filterPosts('all')">
+          <i class="fas fa-stream"></i> All Discussions
+        </button>
+        <button class="nav-item" onclick="filterPosts('math')">
+          <i class="fas fa-square-root-alt"></i> Math Olympiad
+        </button>
+        <button class="nav-item" onclick="filterPosts('physics')">
+          <i class="fas fa-atom"></i> Physics Olympiad
+        </button>
+        <button class="nav-item" onclick="filterPosts('logic')">
+          <i class="fas fa-brain"></i> Critical Thinking
+        </button>
+        <button class="nav-item" onclick="filterPosts('general')">
+          <i class="fas fa-comments"></i> General Chat
+        </button>
+      </div>
 
-    <!-- Display Post -->
-    <div id="postContainer"></div>
+      <div class="sidebar-card">
+        <div class="sidebar-title">
+          <i class="fas fa-fire"></i> Trending Topics
+        </div>
+        <div style="display: flex; flex-wrap: wrap; margin: -4px;">
+          <a href="#" class="trending-tag" onclick="searchTag('Geometry')">
+            Geometry <span class="tag-count">24</span>
+          </a>
+          <a href="#" class="trending-tag" onclick="searchTag('Number Theory')">
+            Number Theory <span class="tag-count">18</span>
+          </a>
+          <a href="#" class="trending-tag" onclick="searchTag('Combinatorics')">
+            Combinatorics <span class="tag-count">15</span>
+          </a>
+          <a href="#" class="trending-tag" onclick="searchTag('Inequalities')">
+            Inequalities <span class="tag-count">12</span>
+          </a>
+          <a href="#" class="trending-tag" onclick="searchTag('BDMO')">
+            BDMO <span class="tag-count">9</span>
+          </a>
+          <a href="#" class="trending-tag" onclick="searchTag('Problem Solving')">
+            Problem Solving <span class="tag-count">7</span>
+          </a>
+        </div>
+      </div>
+    </aside>
+
+    <!-- Center Content -->
+    <main class="center-content">
+      <!-- Post Composer -->
+      <div class="composer">
+        <div class="composer-header">
+          <div class="composer-avatar" id="composerAvatar">?</div>
+          <div class="composer-input-group">
+            <input type="text" class="composer-name" id="userName" placeholder="Enter your name..." maxlength="30" oninput="updateComposerAvatar()">
+            <textarea class="composer-textarea" id="postText" placeholder="Share your thoughts, ask a question, or post a problem...&#10;Use #hashtags to categorize your post.&#10;Use $...$ for math mode." maxlength="2000" oninput="updateCharCounter()"></textarea>
+          </div>
+        </div>
+        <div class="composer-footer">
+          <div class="composer-tools">
+            <button class="tool-btn" title="Add hashtag" onclick="insertText('#')">
+              <i class="fas fa-hashtag"></i>
+            </button>
+            <button class="tool-btn" title="Math mode" onclick="insertText('$  $')">
+              <i class="fas fa-square-root-alt"></i>
+            </button>
+            <button class="tool-btn" title="Bold" onclick="insertText('** **')">
+              <i class="fas fa-bold"></i>
+            </button>
+            <button class="tool-btn" title="Code block" onclick="insertText('```\n\n```')">
+              <i class="fas fa-code"></i>
+            </button>
+          </div>
+          <div style="display: flex; align-items: center;">
+            <span class="char-counter" id="charCounter">0/2000</span>
+            <button class="post-btn" id="postBtn" onclick="submitPost()">
+              <i class="fas fa-paper-plane"></i> Post
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Search -->
+      <div class="search-bar">
+        <i class="fas fa-search search-icon"></i>
+        <input type="text" class="search-input" id="searchInput" placeholder="Search discussions..." oninput="searchPosts()">
+      </div>
+
+      <!-- Feed Header -->
+      <div class="feed-header">
+        <div class="feed-title">
+          <i class="fas fa-comments"></i> Discussions
+        </div>
+        <div class="feed-filter">
+          <button class="filter-btn active" onclick="sortPosts('newest')">Newest</button>
+          <button class="filter-btn" onclick="sortPosts('popular')">Popular</button>
+          <button class="filter-btn" onclick="sortPosts('trending')">Trending</button>
+        </div>
+      </div>
+
+      <!-- Posts Container -->
+      <div id="postsContainer"></div>
+
+      <!-- Empty State (hidden by default) -->
+      <div class="empty-state" id="emptyState" style="display: none;">
+        <i class="fas fa-inbox"></i>
+        <h3>No discussions yet</h3>
+        <p>Be the first to start a conversation!</p>
+      </div>
+    </main>
+
+    <!-- Right Sidebar -->
+    <aside class="right-sidebar">
+      <div class="sidebar-card">
+        <div class="sidebar-title">
+          <i class="fas fa-chart-bar"></i> Community Stats
+        </div>
+        <div class="stats-grid">
+          <div class="stat-card">
+            <div class="stat-number" id="statPosts">0</div>
+            <div class="stat-label">Posts</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statUsers">0</div>
+            <div class="stat-label">Users</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statLikes">0</div>
+            <div class="stat-label">Likes</div>
+          </div>
+          <div class="stat-card">
+            <div class="stat-number" id="statOnline">3</div>
+            <div class="stat-label">Online</div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">
+          <i class="fas fa-user-friends"></i> Active Now
+        </div>
+        <div class="online-users">
+          <div class="online-user">
+            <div class="online-avatar" style="background: linear-gradient(135deg, #00d9ff, #00ffaa);">
+              Q
+              <div class="online-indicator"></div>
+            </div>
+            <div>
+              <div class="online-name">Qarnayn</div>
+              <div class="online-status">Posting a problem...</div>
+            </div>
+          </div>
+          <div class="online-user">
+            <div class="online-avatar" style="background: linear-gradient(135deg, #ff6b6b, #ffd166);">
+              R
+              <div class="online-indicator"></div>
+            </div>
+            <div>
+              <div class="online-name">Rinda</div>
+              <div class="online-status">Reading resources</div>
+            </div>
+          </div>
+          <div class="online-user">
+            <div class="online-avatar" style="background: linear-gradient(135deg, #a855f7, #ec4899);">
+              A
+              <div class="online-indicator"></div>
+            </div>
+            <div>
+              <div class="online-name">Anonymous</div>
+              <div class="online-status">Browsing discussions</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="sidebar-card">
+        <div class="sidebar-title">
+          <i class="fas fa-lightbulb"></i> Quick Tips
+        </div>
+        <div style="color: var(--text-secondary); font-size: 0.9rem; line-height: 1.7;">
+          <p style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 8px;"></i>Use <strong>#hashtags</strong> to categorize your posts</p>
+          <p style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 8px;"></i>Wrap math in <strong>$...$</strong> for formatting</p>
+          <p style="margin-bottom: 12px;"><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 8px;"></i>Be respectful and helpful to others</p>
+          <p><i class="fas fa-check-circle" style="color: var(--accent); margin-right: 8px;"></i>Share your problem-solving approaches</p>
+        </div>
+      </div>
+    </aside>
   </div>
 
   <script>
-    // Function to go back to the previous page
-    function goBack() {
-      window.history.back();
+    // ===== State Management =====
+    let posts = JSON.parse(localStorage.getItem('ct_posts')) || [];
+    let usedNames = JSON.parse(localStorage.getItem('ct_usedNames')) || [];
+    let currentFilter = 'all';
+    let currentSort = 'newest';
+    let likedPosts = JSON.parse(localStorage.getItem('ct_likedPosts')) || [];
+
+    // Demo posts for first-time users
+    const demoPosts = [
+      {
+        id: 'demo1',
+        userName: 'Qarnayn',
+        content: 'Welcome to the Critical Thinkers Discussion Forum! 🎉\\n\\nThis is a space for mathematical olympiad enthusiasts, critical thinkers, and problem solvers to connect, share ideas, and learn from each other.\\n\\nFeel free to:\\n• Ask questions about olympiad problems\\n• Share your solutions and approaches\\n• Discuss mathematical concepts\\n• Connect with fellow thinkers\\n\\nUse #hashtags to categorize your posts and $math mode$ for equations. Let\\'s build an amazing community together!',
+        timestamp: Date.now() - 86400000 * 2,
+        likes: 12,
+        comments: 3,
+        tags: ['welcome', 'community', 'announcement'],
+        pinned: true,
+        avatarGradient: 'linear-gradient(135deg, #00d9ff, #00ffaa)'
+      },
+      {
+        id: 'demo2',
+        userName: 'MathExplorer',
+        content: 'Can anyone help me with this geometry problem?\\n\\nIn triangle ABC, let D be a point on BC such that AD is the angle bisector of angle A. If AB = 5, AC = 7, and BC = 8, find the length of AD.\\n\\nI tried using the Angle Bisector Theorem and Stewart\\'s Theorem but got stuck. Any hints would be appreciated!',
+        timestamp: Date.now() - 3600000 * 5,
+        likes: 5,
+        comments: 2,
+        tags: ['geometry', 'help', 'triangle'],
+        pinned: false,
+        avatarGradient: 'linear-gradient(135deg, #ff6b6b, #ffd166)'
+      },
+      {
+        id: 'demo3',
+        userName: 'ProblemSolver',
+        content: 'Just finished reading "A Beautiful Journey Through Olympiad Geometry" - absolutely brilliant book! 📚\\n\\nThe chapter on cyclic quadrilaterals and power of a point completely changed how I approach geometry problems. Highly recommend it to anyone preparing for BDMO or other olympiads.\\n\\nWhat\\'s everyone else reading right now?',
+        timestamp: Date.now() - 3600000 * 2,
+        likes: 8,
+        comments: 4,
+        tags: ['books', 'geometry', 'recommendation'],
+        pinned: false,
+        avatarGradient: 'linear-gradient(135deg, #a855f7, #ec4899)'
+      }
+    ];
+
+    // Initialize with demo posts if empty
+    if (posts.length === 0) {
+      posts = [...demoPosts];
+      savePosts();
     }
 
-    // Function to submit the post
-    function submitPost() {
-      var postText = document.getElementById('postText').value;
-      var userName = document.getElementById('userName').value;
-
-      // Check if the user has entered their name and post content
-      if (userName.trim() === '') {
-        alert('Please enter your name.');
-        return;
-      }
-      
-      if (postText.trim() === '') {
-        alert('Please write something before posting.');
-        return;
-      }
-
-      // Retrieve used usernames from localStorage
-      let usedNames = JSON.parse(localStorage.getItem('usedNames')) || []; // Default to empty array if null
-
-      // Check if the username is already used
-      if (usedNames.includes(userName)) {
-        alert('This name has already been used.');
-        return;
-      }
-
-      // Add username to the list of used names
-      usedNames.push(userName);
-      localStorage.setItem('usedNames', JSON.stringify(usedNames)); // Save to localStorage
-
-      // Create a new post element
-      var postDiv = document.createElement('div');
-      postDiv.classList.add('post');
-      
-      var authorDiv = document.createElement('div');
-      authorDiv.classList.add('author');
-      authorDiv.innerText = userName;
-
-      var contentDiv = document.createElement('div');
-      contentDiv.classList.add('content');
-      contentDiv.innerText = postText;
-
-      postDiv.appendChild(authorDiv);
-      postDiv.appendChild(contentDiv);
-
-      // Save the post to localStorage
-      let posts = JSON.parse(localStorage.getItem('posts')) || []; // Default to empty array if null
-      posts.push({ userName, content: postText });
-      localStorage.setItem('posts', JSON.stringify(posts)); // Save posts to localStorage
-
-      // Display the new post
-      document.getElementById('postContainer').appendChild(postDiv);
-
-      // Clear the name and post text fields after posting
-      document.getElementById('userName').value = '';
-      document.getElementById('postText').value = '';
+    // ===== Helper Functions =====
+    function savePosts() {
+      localStorage.setItem('ct_posts', JSON.stringify(posts));
+      localStorage.setItem('ct_usedNames', JSON.stringify(usedNames));
+      updateStats();
     }
 
-    // Function to load posts and usernames from localStorage on page load
-    window.onload = function() {
-      // Load used names and posts
-      let usedNames = JSON.parse(localStorage.getItem('usedNames')) || []; // Default to empty array if null
-      let posts = JSON.parse(localStorage.getItem('posts')) || []; // Default to empty array if null
-
-      // Display the posts from localStorage
-      posts.forEach(post => {
-        var postDiv = document.createElement('div');
-        postDiv.classList.add('post');
-        
-        var authorDiv = document.createElement('div');
-        authorDiv.classList.add('author');
-        authorDiv.innerText = post.userName;
-
-        var contentDiv = document.createElement('div');
-        contentDiv.classList.add('content');
-        contentDiv.innerText = post.content;
-
-        postDiv.appendChild(authorDiv);
-        postDiv.appendChild(contentDiv);
-        document.getElementById('postContainer').appendChild(postDiv);
-      });
+    function generateId() {
+      return 'post_' + Date.now() + '_' + Math.random().toString(36).substr(2, 9);
     }
-  </script>
 
-</body>
-</html>
+    function generateGradient(name) {
+      const gradients = [
+        'linear-gradient(135deg, #00d9ff, #00ffaa)',
+        'linear-gradient(135deg, #ff6b6b, #ffd166)',
+        'linear-gradient(135deg, #a855f7, #ec4899)',
+        'linear-gradient(135deg, #3b82f6, #8b5cf6)',
+        'linear-gradient(135deg, #f59e0b, #ef4444)',
+        'linear-gradient(135deg, #10b981, #06b6d4)',
+        'linear-gradient(135deg, #6366f1, #a855f7)',
+        'linear-gradient(135deg, #ec4899, #f43f5e)'
+      ];
+      let hash = 0;
+      for (let i = 0; i < name.length; i++) {
+        hash = name.charCodeAt(i) + ((hash << 5) - hash);
+      }
+      return gradients[Math.abs(hash) % gradients.length];
+    }
+
+    function formatTime(timestamp) {
+      const now = Date.now();
+      const diff = now - timestamp;
+      const seconds = Math.floor(diff / 1000);
+      const minutes = Math.floor(seconds / 60);
+      const hours = Math.floor(minutes / 60);
+      const days = Math.floor(hours / 24);
+
+      if (seconds < 60) return 'Just now';
+      if (minutes < 60) return `${minutes}m ago`;
+      if (hours < 24) return `${hours}h ago`;
+      if (days < 7) return `${days}d ago`;
+      return new Date(timestamp).toLocaleDateString('en-US', { month: 'short', day: 'numeric' });
+    }
+
+    function parseContent(text) {
+      // Parse hashtags
+      text = text.replace(/#(\\w+)/g, '<span style="color: var(--secondary); font-weight: 600;">#$1</span>');
+      // Parse math mode (simple)
+      text = text.replace(/\\$(.+?)\\$/g, '<span style="color: var(--accent); font-family: \\'JetBrains Mono\\', monospace;">$1</span>');
+      // Parse bold
+      text = text.replace(/\\*\\*(.+?)\\*\\*/g, '<strong>$1</strong>');
+      // Parse newlines
+      text = text.replace(/\\n/g, '<br>');
+      // Parse URLs
+      text = text.replace(/(https?:\\/\\/[^\\s]+)/g, '<a href="$1" target="_blank">$1</a>');
+      return text;
+    }
+
+    function extractTags(text) {
+      const tags = [];
+      const matches = text.match(/#(\\w+)/g);
+      if (matches) {
+        matches.forEach(match => tags.push(match.substring(1)));
+      }
+      return tags;
+    }
+
+    // ===== UI Functions =====
+    function updateComposerAvatar() {
+      const name = document.getElementById('userName').value.trim();
+      const avatar = document.getElementById('composerAvatar');
+      avatar.textContent = name ? name.charAt(0).toUpperCase() : '?';
+      if (name) {
+        avatar.style.background = generateGradient(name);
+      } else {
+        avatar.style.backg
